@@ -72,7 +72,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
                 }
 
             }
-            if (empty($type)) {
+            if (empty($content_type)) {
                 throw new UnsupportedMediaTypeException("Any media type {$accepts} are supported");
             }
         }
