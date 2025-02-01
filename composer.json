@@ -30,11 +30,15 @@
         "psr/http-factory": "*",
         "psr/http-client": "*",
         "psr/http-server-handler": "*",
+        "juanchosl/exceptions": "1.0.*",
+        "juanchosl/datatransfer": "1.0.*",
+        "juanchosl/httpheaders": "1.0.*",
         "ext-mbstring": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "9.6.*",
-        "phpstan/phpstan": "1.10.*"
+        "phpstan/phpstan": "1.10.*",
+        "juanchosl/curlclient": "dev-develop"
     },
     "autoload": {
         "psr-4": {

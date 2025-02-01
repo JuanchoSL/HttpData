@@ -9,7 +9,7 @@ use Psr\Http\Message\StreamInterface;
 abstract class Message implements MessageInterface
 {
 
-    protected string $protocol_version;
+    protected string $protocol_version = '1.1';
 
     protected array $headers = [];
 
@@ -20,7 +20,7 @@ abstract class Message implements MessageInterface
         return $this->protocol_version;
     }
 
-    public function withProtocolVersion($version): static
+    public function withProtocolVersion(string $version): static
     {
         if (strpos($version, '/') !== false) {
             $version = substr($version, strpos($version, '/') + 1);
@@ -35,7 +35,7 @@ abstract class Message implements MessageInterface
         return $this->headers;
     }
 
-    public function hasHeader($name): bool
+    public function hasHeader(string $name): bool
     {
         try {
             $this->findHeader($name);
@@ -45,26 +45,24 @@ abstract class Message implements MessageInterface
         }
     }
 
-    public function getHeader($name): array
+    public function getHeader(string $name): array
     {
         $name = $this->findHeader($name);
         return $this->headers[$name];
     }
 
-    public function getHeaderLine($name): string
+    public function getHeaderLine(string $name): string
     {
         return implode(',', $this->getHeader($name));
     }
 
-    public function withHeader($name, $value): static
+    public function withHeader(string $name, $value): static
     {
         $new = clone $this;
-        //$new->headers[$name] = [$value];
-        //return $new;
         return $new->withoutHeader($name)->withAddedHeader($name, $value);
     }
 
-    public function withAddedHeader($name, $value): static
+    public function withAddedHeader(string $name, $value): static
     {
         $new = clone $this;
         try {
@@ -84,7 +82,7 @@ abstract class Message implements MessageInterface
         return $new;
     }
 
-    public function withoutHeader($name): static
+    public function withoutHeader(string $name): static
     {
         $new = clone $this;
         try {
@@ -108,13 +106,13 @@ abstract class Message implements MessageInterface
         return $new;
     }
 
-    protected function findHeader($find)
+    protected function findHeader(string $find): string
     {
         foreach ($this->headers as $name => $value) {
             if (strtolower($name) === strtolower($find)) {
                 return $name;
             }
         }
-        throw new \InvalidArgumentException("The '$find' header does not exists");
+        throw new \InvalidArgumentException("The '{$find}' header does not exists");
     }
 }

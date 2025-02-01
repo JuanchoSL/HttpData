@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb6f2593a34114b37b3a0bcff7b5af37",
+    "content-hash": "f37e965d6498c6a5eda3ce68804bed97",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -61,6 +61,227 @@
                 "source": "https://github.com/php-fig/http-message-util/tree/1.1.5"
             },
             "time": "2020-11-24T22:02:12+00:00"
+        },
+        {
+            "name": "juanchosl/datatransfer",
+            "version": "1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JuanchoSL/DataTransfer.git",
+                "reference": "b3c1a24a74de768590abfc7459f92819333eb5d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JuanchoSL/DataTransfer/zipball/b3c1a24a74de768590abfc7459f92819333eb5d5",
+                "reference": "b3c1a24a74de768590abfc7459f92819333eb5d5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "juanchosl/exceptions": "1.0.*",
+                "juanchosl/validators": "1.0.*",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "1.12.*",
+                "phpunit/phpunit": "9.6.*"
+            },
+            "suggest": {
+                "ext-xlswriter": "*",
+                "ext-yaml": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JuanchoSL\\DataTransfer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Juan Sánchez Lecegui",
+                    "email": "JuanchoSL@hotmail.com",
+                    "homepage": "https://github.com/JuanchoSL/"
+                }
+            ],
+            "description": "A small, lightweight utility to read values and properties from distinct sources using the same methodology",
+            "homepage": "https://github.com/JuanchoSL/DataTransfer",
+            "keywords": [
+                "array",
+                "csv",
+                "data converter",
+                "data transfer objects",
+                "dto",
+                "entity",
+                "file contents",
+                "ini",
+                "json",
+                "object",
+                "simplexmlelement",
+                "values",
+                "xlsx",
+                "xml",
+                "yaml"
+            ],
+            "support": {
+                "source": "https://github.com/JuanchoSL/DataTransfer/tree/1.0.8"
+            },
+            "time": "2024-12-13T19:03:17+00:00"
+        },
+        {
+            "name": "juanchosl/exceptions",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JuanchoSL/Exceptions.git",
+                "reference": "8bf863a194481c9374384e84c515478da9025adb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JuanchoSL/Exceptions/zipball/8bf863a194481c9374384e84c515478da9025adb",
+                "reference": "8bf863a194481c9374384e84c515478da9025adb",
+                "shasum": ""
+            },
+            "require": {
+                "juanchosl/httpheaders": "1.0.*",
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "9.5.25"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JuanchoSL\\Exceptions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Juan Sánchez Lecegui",
+                    "email": "JuanchoSL@hotmail.com",
+                    "homepage": "https://github.com/JuanchoSL/"
+                }
+            ],
+            "description": "A small, lightweight collection of Exceptions that are using the standard values for use on requests",
+            "homepage": "https://github.com/JuanchoSL/Exceptions",
+            "keywords": [
+                "exceptions"
+            ],
+            "support": {
+                "source": "https://github.com/JuanchoSL/Exceptions/tree/1.0.4"
+            },
+            "time": "2024-06-12T17:37:31+00:00"
+        },
+        {
+            "name": "juanchosl/httpheaders",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JuanchoSL/HttpHeaders.git",
+                "reference": "104824605d37867ab5dbe71a1a97b1b0c467a4e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JuanchoSL/HttpHeaders/zipball/104824605d37867ab5dbe71a1a97b1b0c467a4e9",
+                "reference": "104824605d37867ab5dbe71a1a97b1b0c467a4e9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "1.10.*",
+                "phpunit/phpunit": "9.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JuanchoSL\\HttpHeaders\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Juan Sánchez Lecegui",
+                    "email": "JuanchoSL@hotmail.com",
+                    "homepage": "https://github.com/JuanchoSL/"
+                }
+            ],
+            "description": "Little methods collection in order to create http headers",
+            "homepage": "https://github.com/JuanchoSL/HttpHeaders",
+            "keywords": [
+                "content types",
+                "file extensions",
+                "headers",
+                "http",
+                "mime types"
+            ],
+            "support": {
+                "source": "https://github.com/JuanchoSL/HttpHeaders/tree/1.0.0"
+            },
+            "time": "2024-03-05T16:28:02+00:00"
+        },
+        {
+            "name": "juanchosl/validators",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JuanchoSL/Validators.git",
+                "reference": "e5522a2f59d531266b7276e12f7429b53cc8fa14"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JuanchoSL/Validators/zipball/e5522a2f59d531266b7276e12f7429b53cc8fa14",
+                "reference": "e5522a2f59d531266b7276e12f7429b53cc8fa14",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "1.12.*",
+                "phpunit/phpunit": "9.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JuanchoSL\\Validators\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Juan Sánchez Lecegui",
+                    "email": "JuanchoSL@hotmail.com",
+                    "homepage": "https://github.com/JuanchoSL/"
+                }
+            ],
+            "description": "Little methods collection in order to validate variables contents",
+            "homepage": "https://github.com/JuanchoSL/Validators",
+            "keywords": [
+                "debug",
+                "log"
+            ],
+            "support": {
+                "source": "https://github.com/JuanchoSL/Validators/tree/1.0.4"
+            },
+            "time": "2024-12-04T19:08:00+00:00"
         },
         {
             "name": "psr/http-client",
@@ -349,6 +570,61 @@
                 }
             ],
             "time": "2022-12-30T00:23:10+00:00"
+        },
+        {
+            "name": "juanchosl/curlclient",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/JuanchoSL/CurlClient.git",
+                "reference": "2ecbb4fdbb241b7a450f816a238a34b8be93e108"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/2ecbb4fdbb241b7a450f816a238a34b8be93e108",
+                "reference": "2ecbb4fdbb241b7a450f816a238a34b8be93e108",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "apigen/apigen": "v7.0.0-alpha.6",
+                "juanchosl/httpdata": "dev-master",
+                "juanchosl/httpheaders": "1.0.*",
+                "phpstan/phpstan": "1.9.1",
+                "phpunit/phpunit": "9.6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "JuanchoSL\\CurlClient\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Juan Sánchez Lecegui",
+                    "email": "JuanchoSL@hotmail.com",
+                    "homepage": "https://github.com/JuanchoSL/"
+                }
+            ],
+            "description": "A small, lightweight utility to perform curl calls using GET, POST, PUT, PATH, DELETE and HEAD methods...",
+            "homepage": "https://github.com/JuanchoSL/CurlClient",
+            "keywords": [
+                "curl",
+                "request"
+            ],
+            "support": {
+                "source": "https://github.com/JuanchoSL/CurlClient/tree/develop"
+            },
+            "time": "2025-01-26T11:38:26+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -2082,7 +2358,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {},
+    "stability-flags": {
+        "juanchosl/curlclient": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

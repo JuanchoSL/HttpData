@@ -11,6 +11,9 @@ class UriFactory implements UriFactoryInterface
     public function createUri(string $uri = ''): UriInterface
     {
         $uri_parsed = parse_url($uri);
+        if ($uri_parsed === false) {
+            throw new \InvalidArgumentException("The uri: '{$uri}' cannot be parsed");
+        }
         return (new Uri())
             ->withScheme($uri_parsed["scheme"] ?? "")
             ->withUserInfo($uri_parsed["user"] ?? "", $uri_parsed["pass"] ?? "")

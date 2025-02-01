@@ -65,7 +65,7 @@ class Stream implements StreamInterface
         return $this->getMetadata('seekable');
     }
 
-    public function seek($offset, $whence = SEEK_SET): void
+    public function seek(int $offset, int $whence = SEEK_SET): void
     {
         if (empty($this->resource) || ($data = fseek($this->resource, $offset, $whence)) < 0) {
             throw new \RuntimeException("No resource available");
@@ -85,10 +85,10 @@ class Stream implements StreamInterface
         return (strstr($mode, 'w') !== false || strstr($mode, '+') !== false);
     }
 
-    public function write($string): int
+    public function write(string $string): int
     {
         if (empty($this->resource) || ($data = fwrite($this->resource, $string)) === false) {
-            throw new \RuntimeException("No resource available");
+            throw new \RuntimeException("No resource available or cannot be writted");
         }
         return $data;
     }
@@ -99,7 +99,7 @@ class Stream implements StreamInterface
         return (strstr($mode, 'r') !== false || strstr($mode, '+') !== false);
     }
 
-    public function read($length): string
+    public function read(int $length): string
     {
         if (empty($this->resource) || ($data = fread($this->resource, $length)) === false) {
             throw new \RuntimeException("No resource available");
@@ -119,7 +119,7 @@ class Stream implements StreamInterface
         return $data;
     }
 
-    public function getMetadata($key = null): mixed
+    public function getMetadata(?string $key = null): mixed
     {
         if (!$this->resource) {
             return null;

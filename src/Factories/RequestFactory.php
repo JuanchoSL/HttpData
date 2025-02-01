@@ -15,8 +15,6 @@ class RequestFactory implements RequestFactoryInterface
         if (!$uri instanceof UriInterface) {
             $uri = (new UriFactory)->createUri($uri);
         }
-        return (new Request)
-            ->withMethod($method)
-            ->withUri($uri);
+        return (new Request)->withMethod($method)->withUri($uri);
     }
 }

@@ -15,7 +15,7 @@ class ServerRequest extends Request implements ServerRequestInterface
 
     public function getServerParams(): array
     {
-        return $this->server_params;
+        return $_SERVER;//$this->server_params;
     }
 
     public function getCookieParams(): array

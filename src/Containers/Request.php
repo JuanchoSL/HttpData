@@ -28,10 +28,10 @@ class Request extends Message implements RequestInterface
         return $this->method;
     }
 
-    public function withMethod($method): static
+    public function withMethod(string $method): static
     {
         $new = clone $this;
-        $new->method = $method;
+        $new->method = strtoupper($method);
         return $new;
     }
 
@@ -40,14 +40,12 @@ class Request extends Message implements RequestInterface
         return $this->uri;
     }
 
-    public function withUri(UriInterface $uri, $preserveHost = false): static
+    public function withUri(UriInterface $uri, bool $preserveHost = false): static
     {
         $new = clone $this;
         $new->uri = $uri;
         if (!$preserveHost || !$this->hasHeader('host')) {
             if (!empty($host = $uri->getHost())) {
-
-
                 if ($uri->getPort()) {
                     $host .= ':' . $uri->getPort();
                 }

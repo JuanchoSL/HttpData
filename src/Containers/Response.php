@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\HttpData\Containers;
 
+use JuanchoSL\HttpHeaders\Headers;
 use Psr\Http\Message\ResponseInterface;
 
 class Response extends Message implements ResponseInterface
@@ -18,6 +19,9 @@ class Response extends Message implements ResponseInterface
     {
         $new = clone $this;
         $new->status_code = $code;
+        if (empty($reasonPhrase)) {
+            $reasonPhrase = Headers::getMessage($code) ?? '';
+        }
         $new->reasonPhrase = $reasonPhrase;
         return $new;
     }

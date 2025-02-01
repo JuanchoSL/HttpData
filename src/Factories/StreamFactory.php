@@ -11,16 +11,17 @@ class StreamFactory implements StreamFactoryInterface
 
     public function createStream(string $content = ''): StreamInterface
     {
-        $resource = fopen('php://temp', 'r+');
+        $resource = fopen('php://temp', 'w');
         fwrite($resource, $content);
         return $this->createStreamFromResource($resource);
     }
+
     public function createStreamFromFile(string $filename, string $mode = 'r'): StreamInterface
     {
         if (!in_array($mode, ['r', 'r+', 'w', 'w+', 'a', 'a+'])) {
             throw new \InvalidArgumentException("The argument {$mode} is not a valid mode value");
         }
-        if (!is_file($filename) || (!$file = fopen($filename, $mode))) {
+        if (!is_file($filename) || ($file = fopen($filename, $mode)) === false) {
             throw new \RuntimeException("The filename {$filename} cannot be opened");
         }
         return $this->createStreamFromResource($file);
