@@ -8,7 +8,6 @@ use JuanchoSL\Exceptions\UnsupportedMediaTypeException;
 use JuanchoSL\HttpData\Factories\UriFactory;
 use JuanchoSL\HttpData\Containers\ServerRequest;
 use JuanchoSL\HttpHeaders\Constants\Types\MimeTypes;
-use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -72,16 +71,17 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
         $accepts = $server_request->hasHeader('accept') ? $server_request->getHeaderLine('accept') : '';
         if (!empty($accepts)) {
             foreach (explode(',', $accepts) as $accept) {
-                if (in_array($accept, [MimeTypes::HTML , MimeTypes::JSON, MimeTypes::CSV, MimeTypes::XML, MimeTypes::EXCEL])) {
+                if (in_array($accept, [MimeTypes::HTML, MimeTypes::JSON, MimeTypes::CSV, MimeTypes::XML, MimeTypes::EXCEL])) {
                     $content_type = $accept;
                     break;
                 }
             }
             if (empty($content_type)) {
-                throw new UnsupportedMediaTypeException("Any media type {$accepts} are supported");
+                throw new UnsupportedMediaTypeException("Any acepted media type ({$accepts}) are supported");
             }
+            $response = $response->withAddedHeader('Content-type', $content_type);
         }
-        return $response->withAddedHeader('Content-type', $content_type);
+        return $response;
     }
 
 }
