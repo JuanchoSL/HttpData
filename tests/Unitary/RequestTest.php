@@ -41,4 +41,14 @@ class RequestTest extends TestCase
         $this->assertEquals($new_url, (string) $request->getUri());
     }
 
+    public function testWithHeader()
+    {
+        $request = (new Request)->withHeader('name', 'value');
+        $this->assertTrue($request->hasHeader('name'));
+        $this->assertEquals('value', current($request->getHeader('name')));
+        $this->assertEquals('value', $request->getHeaderLine('name'));
+        $this->assertTrue($request->hasHeader('NAME'));
+        $this->assertEquals('value', current($request->getHeader('NAME')));
+        $this->assertEquals('value', $request->getHeaderLine('NAME'));
+    }
 }

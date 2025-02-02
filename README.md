@@ -2,7 +2,7 @@
 
 ## Description
 
-This library groups the definitions of the different elements involved in data transmissions such as HTTP, applying the interfaces defined in PSRS 7, 17 and 18, adding the extra objects used and ensuring compliance with the requirements that allow to give the necessary stability To our application, being able to implement for third -party bookstores without the need to adapt our business logic to a new implementation that could modify its consumption or internal structure.
+This library groups the definitions of the different elements involved in data transmissions such as HTTP, applying the interfaces defined in PSRS 7 and 17, adding the extra objects used and ensuring compliance with the requirements that allow to give the necessary stability To our application, being able to implement for third -party bookstores without the need to adapt our business logic to a new implementation that could modify its consumption or internal structure.
 
 ## Install
 ```bash

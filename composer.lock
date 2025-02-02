@@ -577,12 +577,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/CurlClient.git",
-                "reference": "2ecbb4fdbb241b7a450f816a238a34b8be93e108"
+                "reference": "2c9c3bda69dab858efddbcff07019f97a6c1c919"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/2ecbb4fdbb241b7a450f816a238a34b8be93e108",
-                "reference": "2ecbb4fdbb241b7a450f816a238a34b8be93e108",
+                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/2c9c3bda69dab858efddbcff07019f97a6c1c919",
+                "reference": "2c9c3bda69dab858efddbcff07019f97a6c1c919",
                 "shasum": ""
             },
             "require": {
@@ -624,7 +624,7 @@
             "support": {
                 "source": "https://github.com/JuanchoSL/CurlClient/tree/develop"
             },
-            "time": "2025-01-26T11:38:26+00:00"
+            "time": "2025-02-01T16:00:36+00:00"
         },
         {
             "name": "myclabs/deep-copy",

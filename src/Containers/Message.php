@@ -47,8 +47,12 @@ abstract class Message implements MessageInterface
 
     public function getHeader(string $name): array
     {
-        $name = $this->findHeader($name);
-        return $this->headers[$name];
+        try {
+            $name = $this->findHeader($name);
+            return $this->headers[$name];
+        } catch (\Exception $e) {
+            return [];
+        }
     }
 
     public function getHeaderLine(string $name): string
@@ -68,15 +72,13 @@ abstract class Message implements MessageInterface
         try {
             $name = $new->findHeader($name);
         } catch (\Exception $e) {
-
+            $new->headers[$name] = [];
         } finally {
-            if (str_starts_with(strtolower($name), 'accept') && is_string($value)) {
+            if (is_string($value)) {
                 $value = explode(',', $value);
-                foreach ($value as $header) {
-                    $new->headers[$name][] = trim($header);
-                }
-            } else {
-                $new->headers[$name][] = $value;
+            }
+            foreach ($value as $header) {
+                $new->headers[$name][] = trim($header);
             }
         }
         return $new;
