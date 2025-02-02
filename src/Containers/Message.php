@@ -74,7 +74,7 @@ abstract class Message implements MessageInterface
         } catch (\Exception $e) {
             $new->headers[$name] = [];
         } finally {
-            if (is_string($value)) {
+            if (!is_iterable($value)) {
                 $value = explode(',', $value);
             }
             foreach ($value as $header) {
