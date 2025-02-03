@@ -13,7 +13,15 @@ class Request extends Message implements RequestInterface
 
     public function getRequestTarget(): string
     {
-        return $this->target ?? $this->uri->getPath() . $this->uri->getQuery();
+        $target = $this->target;
+        if (empty($target)) {
+            $target = $this->uri->getPath();
+            if (!empty($this->uri->getQuery())) {
+                $target .= "?" . $this->uri->getQuery();
+            }
+        }
+        return $target;
+        return $this->target ?? $this->uri->getPath() . "?" . $this->uri->getQuery();
     }
 
     public function withRequestTarget($requestTarget): static
