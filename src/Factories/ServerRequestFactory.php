@@ -33,8 +33,12 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
             $req = $req->withAddedHeader($key, $value);
         }
         if (in_array(strtoupper($req->getMethod()), ['POST', 'PUT', 'PATCH'])) {
-
             $content_types = $req->getHeader('content-type');
+            foreach ($content_types as $index => $content_type) {
+                if (($length = strpos($content_type, ';')) !== false) {
+                    $content_types[$index] = substr($content_type, 0, $length);
+                }
+            }
             if (in_array('application/x-www-form-urlencoded', $content_types) || in_array('multipart/form-data', $content_types)) {
                 $body = $_POST;
             } else {
