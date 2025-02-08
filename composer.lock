@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f37e965d6498c6a5eda3ce68804bed97",
+    "content-hash": "a9a40e01d47935d8f6d91b12d74172ae",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -134,20 +134,19 @@
         },
         {
             "name": "juanchosl/exceptions",
-            "version": "1.0.4",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/Exceptions.git",
-                "reference": "8bf863a194481c9374384e84c515478da9025adb"
+                "reference": "1969661457c4910889bf6cc7f216b2e8ff1f7524"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/Exceptions/zipball/8bf863a194481c9374384e84c515478da9025adb",
-                "reference": "8bf863a194481c9374384e84c515478da9025adb",
+                "url": "https://api.github.com/repos/JuanchoSL/Exceptions/zipball/1969661457c4910889bf6cc7f216b2e8ff1f7524",
+                "reference": "1969661457c4910889bf6cc7f216b2e8ff1f7524",
                 "shasum": ""
             },
             "require": {
-                "juanchosl/httpheaders": "1.0.*",
                 "php": "^7.1 || ^8.0"
             },
             "require-dev": {
@@ -176,22 +175,23 @@
                 "exceptions"
             ],
             "support": {
-                "source": "https://github.com/JuanchoSL/Exceptions/tree/1.0.4"
+                "issues": "https://github.com/JuanchoSL/Exceptions/issues",
+                "source": "https://github.com/JuanchoSL/Exceptions/tree/1.0.3"
             },
-            "time": "2024-06-12T17:37:31+00:00"
+            "time": "2023-07-19T21:43:23+00:00"
         },
         {
             "name": "juanchosl/httpheaders",
-            "version": "1.0.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/HttpHeaders.git",
-                "reference": "104824605d37867ab5dbe71a1a97b1b0c467a4e9"
+                "reference": "ac77f4db97bfad3ea2931e6d7e5610a8526ce6b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/HttpHeaders/zipball/104824605d37867ab5dbe71a1a97b1b0c467a4e9",
-                "reference": "104824605d37867ab5dbe71a1a97b1b0c467a4e9",
+                "url": "https://api.github.com/repos/JuanchoSL/HttpHeaders/zipball/ac77f4db97bfad3ea2931e6d7e5610a8526ce6b6",
+                "reference": "ac77f4db97bfad3ea2931e6d7e5610a8526ce6b6",
                 "shasum": ""
             },
             "require": {
@@ -202,6 +202,7 @@
                 "phpstan/phpstan": "1.10.*",
                 "phpunit/phpunit": "9.6.*"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -229,9 +230,9 @@
                 "mime types"
             ],
             "support": {
-                "source": "https://github.com/JuanchoSL/HttpHeaders/tree/1.0.0"
+                "source": "https://github.com/JuanchoSL/HttpHeaders/tree/master"
             },
-            "time": "2024-03-05T16:28:02+00:00"
+            "time": "2025-02-02T20:05:57+00:00"
         },
         {
             "name": "juanchosl/validators",
@@ -442,62 +443,6 @@
                 "source": "https://github.com/php-fig/http-message/tree/2.0"
             },
             "time": "2023-04-04T09:54:51+00:00"
-        },
-        {
-            "name": "psr/http-server-handler",
-            "version": "1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/php-fig/http-server-handler.git",
-                "reference": "84c4fb66179be4caaf8e97bd239203245302e7d4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/http-server-handler/zipball/84c4fb66179be4caaf8e97bd239203245302e7d4",
-                "reference": "84c4fb66179be4caaf8e97bd239203245302e7d4",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0",
-                "psr/http-message": "^1.0 || ^2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Psr\\Http\\Server\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
-                }
-            ],
-            "description": "Common interface for HTTP server-side request handler",
-            "keywords": [
-                "handler",
-                "http",
-                "http-interop",
-                "psr",
-                "psr-15",
-                "psr-7",
-                "request",
-                "response",
-                "server"
-            ],
-            "support": {
-                "source": "https://github.com/php-fig/http-server-handler/tree/1.0.2"
-            },
-            "time": "2023-04-10T20:06:20+00:00"
         }
     ],
     "packages-dev": [
@@ -577,12 +522,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/CurlClient.git",
-                "reference": "2c9c3bda69dab858efddbcff07019f97a6c1c919"
+                "reference": "ebee302f67be372d89a3729b34ca6df83c46b5bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/2c9c3bda69dab858efddbcff07019f97a6c1c919",
-                "reference": "2c9c3bda69dab858efddbcff07019f97a6c1c919",
+                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/ebee302f67be372d89a3729b34ca6df83c46b5bb",
+                "reference": "ebee302f67be372d89a3729b34ca6df83c46b5bb",
                 "shasum": ""
             },
             "require": {
@@ -624,7 +569,7 @@
             "support": {
                 "source": "https://github.com/JuanchoSL/CurlClient/tree/develop"
             },
-            "time": "2025-02-01T16:00:36+00:00"
+            "time": "2025-02-02T01:05:49+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -2359,7 +2304,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "juanchosl/curlclient": 20
+        "juanchosl/curlclient": 20,
+        "juanchosl/httpheaders": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

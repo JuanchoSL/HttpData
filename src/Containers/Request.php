@@ -21,7 +21,6 @@ class Request extends Message implements RequestInterface
             }
         }
         return $target;
-        return $this->target ?? $this->uri->getPath() . "?" . $this->uri->getQuery();
     }
 
     public function withRequestTarget($requestTarget): static

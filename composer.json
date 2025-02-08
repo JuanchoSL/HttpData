@@ -25,15 +25,14 @@
     ],
     "require": {
         "php": "^7.1 || ^8.0",
-        "psr/http-message": "*",
+        "ext-mbstring": "*",
         "fig/http-message-util": "*",
+        "psr/http-message": "*",
         "psr/http-factory": "*",
         "psr/http-client": "*",
-        "psr/http-server-handler": "*",
         "juanchosl/exceptions": "1.0.*",
         "juanchosl/datatransfer": "1.0.*",
-        "juanchosl/httpheaders": "1.0.*",
-        "ext-mbstring": "*"
+        "juanchosl/httpheaders": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "9.6.*",

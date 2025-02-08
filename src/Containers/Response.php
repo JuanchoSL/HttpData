@@ -30,19 +30,4 @@ class Response extends Message implements ResponseInterface
     {
         return $this->reasonPhrase;
     }
-
-    public function send()
-    {
-        //http_response_code($this->getStatusCode());
-        header("HTTP/" . $this->getProtocolVersion() . " " . $this->getStatusCode() . " " . $this->getReasonPhrase());
-        foreach ($this->headers as $name => $value) {
-            header($name . ": " . $this->getHeaderLine($name));
-        }
-        if (!in_array($this->getStatusCode(), [204, 205, 304], true)) {
-            $body = $this->getBody();
-            $body->rewind();
-            echo (string) $body;
-        }
-        exit;
-    }
 }
