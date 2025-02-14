@@ -6,6 +6,7 @@ use JuanchoSL\HttpData\Factories\UriFactory;
 use JuanchoSL\HttpData\Containers\Request;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\UriInterface;
 
 class RequestFactory implements RequestFactoryInterface
 {
