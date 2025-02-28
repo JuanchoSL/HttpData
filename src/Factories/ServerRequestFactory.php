@@ -35,10 +35,10 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
                 }
             }
             if (in_array('application/x-www-form-urlencoded', $content_types) || in_array('multipart/form-data', $content_types)) {
-                $body = $_POST;
+                $req = $req->withParsedBody($_POST);
             }
             if (!empty($input = file_get_contents('php://input'))) {
-                $req = $req->withParsedBody($body)->withBody((new StreamFactory)->createStream($input));
+                $req = $req->withBody((new StreamFactory)->createStream($input));
             }
         }
         return $req->withUri($uri);
