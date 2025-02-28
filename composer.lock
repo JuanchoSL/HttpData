@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9a40e01d47935d8f6d91b12d74172ae",
+    "content-hash": "6f7147f2ae1da490576d4908cb61fb20",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -61,76 +61,6 @@
                 "source": "https://github.com/php-fig/http-message-util/tree/1.1.5"
             },
             "time": "2020-11-24T22:02:12+00:00"
-        },
-        {
-            "name": "juanchosl/datatransfer",
-            "version": "1.0.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JuanchoSL/DataTransfer.git",
-                "reference": "b3c1a24a74de768590abfc7459f92819333eb5d5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/DataTransfer/zipball/b3c1a24a74de768590abfc7459f92819333eb5d5",
-                "reference": "b3c1a24a74de768590abfc7459f92819333eb5d5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "ext-mbstring": "*",
-                "juanchosl/exceptions": "1.0.*",
-                "juanchosl/validators": "1.0.*",
-                "php": "^8.1"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "1.12.*",
-                "phpunit/phpunit": "9.6.*"
-            },
-            "suggest": {
-                "ext-xlswriter": "*",
-                "ext-yaml": "*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "JuanchoSL\\DataTransfer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Juan Sánchez Lecegui",
-                    "email": "JuanchoSL@hotmail.com",
-                    "homepage": "https://github.com/JuanchoSL/"
-                }
-            ],
-            "description": "A small, lightweight utility to read values and properties from distinct sources using the same methodology",
-            "homepage": "https://github.com/JuanchoSL/DataTransfer",
-            "keywords": [
-                "array",
-                "csv",
-                "data converter",
-                "data transfer objects",
-                "dto",
-                "entity",
-                "file contents",
-                "ini",
-                "json",
-                "object",
-                "simplexmlelement",
-                "values",
-                "xlsx",
-                "xml",
-                "yaml"
-            ],
-            "support": {
-                "source": "https://github.com/JuanchoSL/DataTransfer/tree/1.0.8"
-            },
-            "time": "2024-12-13T19:03:17+00:00"
         },
         {
             "name": "juanchosl/exceptions",
@@ -233,56 +163,6 @@
                 "source": "https://github.com/JuanchoSL/HttpHeaders/tree/master"
             },
             "time": "2025-02-02T20:05:57+00:00"
-        },
-        {
-            "name": "juanchosl/validators",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/JuanchoSL/Validators.git",
-                "reference": "e5522a2f59d531266b7276e12f7429b53cc8fa14"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/Validators/zipball/e5522a2f59d531266b7276e12f7429b53cc8fa14",
-                "reference": "e5522a2f59d531266b7276e12f7429b53cc8fa14",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": "^7.1 || ^8.0"
-            },
-            "require-dev": {
-                "phpstan/phpstan": "1.12.*",
-                "phpunit/phpunit": "9.6.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "JuanchoSL\\Validators\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Juan Sánchez Lecegui",
-                    "email": "JuanchoSL@hotmail.com",
-                    "homepage": "https://github.com/JuanchoSL/"
-                }
-            ],
-            "description": "Little methods collection in order to validate variables contents",
-            "homepage": "https://github.com/JuanchoSL/Validators",
-            "keywords": [
-                "debug",
-                "log"
-            ],
-            "support": {
-                "source": "https://github.com/JuanchoSL/Validators/tree/1.0.4"
-            },
-            "time": "2024-12-04T19:08:00+00:00"
         },
         {
             "name": "psr/http-client",
@@ -573,16 +453,16 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.12.1",
+            "version": "1.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "123267b2c49fbf30d78a7b2d333f6be754b94845"
+                "reference": "024473a478be9df5fdaca2c793f2232fe788e414"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/123267b2c49fbf30d78a7b2d333f6be754b94845",
-                "reference": "123267b2c49fbf30d78a7b2d333f6be754b94845",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/024473a478be9df5fdaca2c793f2232fe788e414",
+                "reference": "024473a478be9df5fdaca2c793f2232fe788e414",
                 "shasum": ""
             },
             "require": {
@@ -621,7 +501,7 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.12.1"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.0"
             },
             "funding": [
                 {
@@ -629,7 +509,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-11-08T17:47:46+00:00"
+            "time": "2025-02-12T12:17:51+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -809,16 +689,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.67",
+            "version": "1.12.19",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493"
+                "reference": "c42ba9bab7a940ed00092ecb1c77bad98896d789"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/16ddbe776f10da6a95ebd25de7c1dbed397dc493",
-                "reference": "16ddbe776f10da6a95ebd25de7c1dbed397dc493",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c42ba9bab7a940ed00092ecb1c77bad98896d789",
+                "reference": "c42ba9bab7a940ed00092ecb1c77bad98896d789",
                 "shasum": ""
             },
             "require": {
@@ -863,7 +743,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-16T07:22:02+00:00"
+            "time": "2025-02-19T15:42:21+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
