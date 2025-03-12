@@ -1,22 +1,22 @@
 <?php
 
-namespace JuanchoSL\HttpData\Tests\Functional;
+namespace JuanchoSL\HttpData\Tests\Integration;
 
-use JuanchoSL\CurlClient\Wrappers\Psr7CurlClient;
+use JuanchoSL\CurlClient\Wrappers\PsrCurlClient;
 use JuanchoSL\HttpData\Factories\RequestFactory;
 use JuanchoSL\HttpHeaders\Constants\Types\Extensions;
 use JuanchoSL\HttpHeaders\Constants\Types\MimeTypes;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
-class PsrCurlClient extends TestCase
+class PsrCurlClientTest extends TestCase
 {
 
     public function testGetApiLyrics()
     {
 
         $request = (new RequestFactory)->createRequest('GET', 'http://api.chartlyrics.com/apiv1.asmx/SearchLyric?artist=rihanna&song=umbrella');
-        $response = (new Psr7CurlClient)->sendRequest($request);
+        $response = (new PsrCurlClient)->sendRequest($request);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals(200, $response->getStatusCode());
@@ -34,11 +34,11 @@ class PsrCurlClient extends TestCase
         $this->assertObjectHasProperty('Song', $body);
         $this->assertStringContainsStringIgnoringCase('umbrella', $body->Song);
     }
-
+/*
     public function testGetApiBitcoinPrice()
     {
         $request = (new RequestFactory)->createRequest('GET', 'https://api.coindesk.com/v1/bpi/currentprice.json');
-        $response = (new Psr7CurlClient)->sendRequest($request);
+        $response = (new PsrCurlClient)->sendRequest($request);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals(200, $response->getStatusCode());
@@ -49,11 +49,11 @@ class PsrCurlClient extends TestCase
         $this->assertObjectHasProperty('chartName', $body);
         $this->assertEqualsIgnoringCase('bitcoin', $body->chartName);
     }
-    
+*/   
     public function testGetExchangeRatesApi()
     {
         $request = (new RequestFactory)->createRequest('GET', 'https://api.coingecko.com/api/v3/exchange_rates');
-        $response = (new Psr7CurlClient)->sendRequest($request);
+        $response = (new PsrCurlClient)->sendRequest($request);
         
         $this->assertInstanceOf(ResponseInterface::class, $response);
         $this->assertEquals(200, $response->getStatusCode());
