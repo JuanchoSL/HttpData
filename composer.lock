@@ -402,24 +402,28 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/CurlClient.git",
-                "reference": "8d9d6cdafbcdfe5612ac275e8c6d2c4596209b27"
+                "reference": "57bbd1aa88c21dbe20a27dcb18a09969da62c6e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/8d9d6cdafbcdfe5612ac275e8c6d2c4596209b27",
-                "reference": "8d9d6cdafbcdfe5612ac275e8c6d2c4596209b27",
+                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/57bbd1aa88c21dbe20a27dcb18a09969da62c6e7",
+                "reference": "57bbd1aa88c21dbe20a27dcb18a09969da62c6e7",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "php": "^7.1 || ^8.0"
+                "fig/http-message-util": "*",
+                "juanchosl/httpdata": "dev-master",
+                "juanchosl/httpheaders": "dev-master",
+                "php": "^7.1 || ^8.0",
+                "psr/http-client": "*",
+                "psr/http-factory": "*",
+                "psr/http-message": "*"
             },
             "require-dev": {
                 "apigen/apigen": "v7.0.0-alpha.6",
-                "juanchosl/httpdata": "dev-master",
-                "juanchosl/httpheaders": "1.0.*",
                 "phpstan/phpstan": "1.9.1",
                 "phpunit/phpunit": "9.6.*"
             },
@@ -440,16 +444,27 @@
                     "homepage": "https://github.com/JuanchoSL/"
                 }
             ],
-            "description": "A small, lightweight utility to perform curl calls using GET, POST, PUT, PATH, DELETE and HEAD methods...",
+            "description": "A small, lightweight utility to perform curl calls using GET, POST, PUT, PACTH, DELETE, HEAD, TRACE, OPTIONS methods...",
             "homepage": "https://github.com/JuanchoSL/CurlClient",
             "keywords": [
+                "client",
                 "curl",
-                "request"
+                "delete",
+                "get",
+                "head",
+                "options",
+                "patch",
+                "post",
+                "psr18",
+                "psr7",
+                "put",
+                "request",
+                "trace"
             ],
             "support": {
                 "source": "https://github.com/JuanchoSL/CurlClient/tree/develop"
             },
-            "time": "2025-03-12T14:18:39+00:00"
+            "time": "2025-03-12T19:36:12+00:00"
         },
         {
             "name": "myclabs/deep-copy",

@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\HttpData\Containers;
 
+use DateTime;
 use JuanchoSL\HttpData\Factories\StreamFactory;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
@@ -75,7 +76,12 @@ abstract class Message implements MessageInterface
             $new->headers[$name] = [];
         } finally {
             if (!is_iterable($value)) {
-                $value = explode(',', $value);
+                try {
+                    new DateTime($value);
+                    $value = [$value];
+                } catch (\Exception $e) {
+                    $value = explode(',', $value);
+                }
             }
             foreach ($value as $header) {
                 $new->headers[$name][] = trim($header);
