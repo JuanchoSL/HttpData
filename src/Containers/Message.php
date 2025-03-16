@@ -77,7 +77,7 @@ abstract class Message implements MessageInterface
         } finally {
             if (!is_iterable($value)) {
                 if (strpos($value, ',') !== false) {
-                    $value = is_numeric(strtotime($value) || in_array(strtolower($name), ['user-agent'])) ? [$value] : explode(',', $value);
+                    $value = is_numeric(strtotime($value)) || in_array(strtolower($name), ['user-agent']) ? [$value] : explode(',', $value);
                 } else {
                     $value = [$value];
                 }
