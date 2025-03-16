@@ -7,16 +7,18 @@ use Psr\Http\Message\UriInterface;
 
 class Request extends Message implements RequestInterface
 {
-    protected string $target;
+    protected string $target = '';
     protected string $method;
     protected UriInterface $uri;
 
     public function getRequestTarget(): string
     {
         $target = $this->target;
-        if (empty($target)) {
-            $target = $this->uri->getPath();
-            if (!empty($this->uri->getQuery())) {
+        if (empty($target) || $target == '*') {
+            if(empty($this->uri) || empty($target = $this->uri->getPath())) {
+                $target = '/';
+            }
+            if (!empty($this->uri) && !empty($this->uri->getQuery())) {
                 $target .= "?" . $this->uri->getQuery();
             }
         }
