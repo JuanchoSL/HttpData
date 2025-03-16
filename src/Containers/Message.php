@@ -76,11 +76,15 @@ abstract class Message implements MessageInterface
             $new->headers[$name] = [];
         } finally {
             if (!is_iterable($value)) {
-                try {
-                    new DateTime($value);
+                if (strpos($value, ',') !== false) {
+                    try {
+                        new DateTime($value);
+                        $value = [$value];
+                    } catch (\Exception $e) {
+                        $value = explode(',', $value);
+                    }
+                } else {
                     $value = [$value];
-                } catch (\Exception $e) {
-                    $value = explode(',', $value);
                 }
             }
             foreach ($value as $header) {
