@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6f7147f2ae1da490576d4908cb61fb20",
+    "content-hash": "ea45ba25de465a2398403cdfbb22a018",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -402,12 +402,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/CurlClient.git",
-                "reference": "57bbd1aa88c21dbe20a27dcb18a09969da62c6e7"
+                "reference": "e5fabbd5075867a1fdc6b4553143a1ab840af64b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/57bbd1aa88c21dbe20a27dcb18a09969da62c6e7",
-                "reference": "57bbd1aa88c21dbe20a27dcb18a09969da62c6e7",
+                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/e5fabbd5075867a1fdc6b4553143a1ab840af64b",
+                "reference": "e5fabbd5075867a1fdc6b4553143a1ab840af64b",
                 "shasum": ""
             },
             "require": {
@@ -464,7 +464,7 @@
             "support": {
                 "source": "https://github.com/JuanchoSL/CurlClient/tree/develop"
             },
-            "time": "2025-03-12T19:36:12+00:00"
+            "time": "2025-03-15T23:00:09+00:00"
         },
         {
             "name": "myclabs/deep-copy",

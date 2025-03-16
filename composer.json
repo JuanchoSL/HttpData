@@ -26,10 +26,10 @@
     "require": {
         "php": "^7.1 || ^8.0",
         "ext-mbstring": "*",
-        "fig/http-message-util": "*",
-        "psr/http-message": "*",
-        "psr/http-factory": "*",
-        "psr/http-client": "*",
+        "fig/http-message-util": "1.1.*",
+        "psr/http-message": "^2.0",
+        "psr/http-factory": "1.1.*",
+        "psr/http-client": "1.0.*",
         "juanchosl/exceptions": "1.0.*",
         "juanchosl/httpheaders": "dev-master"
     },
