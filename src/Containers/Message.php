@@ -77,12 +77,7 @@ abstract class Message implements MessageInterface
         } finally {
             if (!is_iterable($value)) {
                 if (strpos($value, ',') !== false) {
-                    try {
-                        new DateTime($value);
-                        $value = [$value];
-                    } catch (\Exception $e) {
-                        $value = explode(',', $value);
-                    }
+                    $value = is_numeric(strtotime($value)) ? [$value] : explode(',', $value);
                 } else {
                     $value = [$value];
                 }
