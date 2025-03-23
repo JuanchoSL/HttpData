@@ -402,28 +402,30 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/CurlClient.git",
-                "reference": "e5fabbd5075867a1fdc6b4553143a1ab840af64b"
+                "reference": "fc81b9bf21132a7daa78c832b2bec42bdf541f58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/e5fabbd5075867a1fdc6b4553143a1ab840af64b",
-                "reference": "e5fabbd5075867a1fdc6b4553143a1ab840af64b",
+                "url": "https://api.github.com/repos/JuanchoSL/CurlClient/zipball/fc81b9bf21132a7daa78c832b2bec42bdf541f58",
+                "reference": "fc81b9bf21132a7daa78c832b2bec42bdf541f58",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "fig/http-message-util": "*",
+                "fig/http-message-util": "1.1.*",
                 "juanchosl/httpdata": "dev-master",
                 "juanchosl/httpheaders": "dev-master",
                 "php": "^7.1 || ^8.0",
-                "psr/http-client": "*",
-                "psr/http-factory": "*",
-                "psr/http-message": "*"
+                "psr/http-client": "1.0.*",
+                "psr/http-factory": "1.1.*",
+                "psr/http-message": "^2.0",
+                "psr/log": "^3.0"
             },
             "require-dev": {
                 "apigen/apigen": "v7.0.0-alpha.6",
+                "juanchosl/logger": "1.1.*",
                 "phpstan/phpstan": "1.9.1",
                 "phpunit/phpunit": "9.6.*"
             },
@@ -464,7 +466,7 @@
             "support": {
                 "source": "https://github.com/JuanchoSL/CurlClient/tree/develop"
             },
-            "time": "2025-03-15T23:00:09+00:00"
+            "time": "2025-03-17T11:52:05+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -704,16 +706,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.12.21",
+            "version": "1.12.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "14276fdef70575106a3392a4ed553c06a984df28"
+                "reference": "29201e7a743a6ab36f91394eab51889a82631428"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/14276fdef70575106a3392a4ed553c06a984df28",
-                "reference": "14276fdef70575106a3392a4ed553c06a984df28",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/29201e7a743a6ab36f91394eab51889a82631428",
+                "reference": "29201e7a743a6ab36f91394eab51889a82631428",
                 "shasum": ""
             },
             "require": {
@@ -758,7 +760,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-09T09:24:50+00:00"
+            "time": "2025-03-23T14:57:32+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -1181,6 +1183,56 @@
                 }
             ],
             "time": "2024-12-05T13:48:26+00:00"
+        },
+        {
+            "name": "psr/log",
+            "version": "3.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/log.git",
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+                "reference": "f16e1d5863e37f8d8c2a01719f5b34baa2b714d3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Log\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "https://www.php-fig.org/"
+                }
+            ],
+            "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
+            "keywords": [
+                "log",
+                "psr",
+                "psr-3"
+            ],
+            "support": {
+                "source": "https://github.com/php-fig/log/tree/3.0.2"
+            },
+            "time": "2024-09-11T13:17:53+00:00"
         },
         {
             "name": "sebastian/cli-parser",

@@ -10,7 +10,6 @@ class UploadedFile implements UploadedFileInterface
     protected StreamInterface $stream;
     protected int $error;
     protected string $client_name;
-    protected ?string $filename = null;
     protected ?string $media_type = null;
     protected int $size;
     protected bool $moved = false;
