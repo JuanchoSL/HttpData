@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class ServerRequest extends Request implements ServerRequestInterface
 {
-    protected null|array|object $parsed_body;
+    protected null|array|object $parsed_body = null;
     protected array $server_params = [];
     protected array $cookie_params = [];
     protected array $query_params = [];
