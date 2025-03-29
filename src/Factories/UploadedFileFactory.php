@@ -23,7 +23,6 @@ class UploadedFileFactory implements UploadedFileFactoryInterface
         return new UploadedFile($stream, $clientFilename, $clientMediaType, $size, $error);
     }
 
-    
     public function fromGlobals(): array
     {
         $uploadedFiles = $_FILES;
@@ -46,9 +45,10 @@ class UploadedFileFactory implements UploadedFileFactoryInterface
         } else {
             $seq[$name] = $arr;
             if ($name == 'size') {
-                return $seq = $this->createUploadedFile((new StreamFactory)->createStreamFromFile($seq['tmp_name']),
-                    $seq['size'],
-                    $seq['error'],
+                return $seq = $this->createUploadedFile(
+                    (new StreamFactory)->createStreamFromFile($seq['tmp_name']),
+                    (int) $seq['size'],
+                    (int) $seq['error'],
                     $seq['name'],
                     $seq['type'],
                 );
