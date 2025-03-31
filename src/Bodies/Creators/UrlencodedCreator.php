@@ -2,9 +2,10 @@
 
 namespace JuanchoSL\HttpData\Bodies\Creators;
 
+use JuanchoSL\HttpData\Contracts\BodyCreators;
 use Stringable;
 
-class UrlencodeCreator extends AbstractBodyCreator implements Stringable
+class UrlencodedCreator extends AbstractBodyCreator implements BodyCreators, Stringable
 {
 
     public function __tostring(): string

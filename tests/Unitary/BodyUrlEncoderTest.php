@@ -2,7 +2,7 @@
 
 namespace JuanchoSL\HttpData\Tests\Unitary;
 
-use JuanchoSL\HttpData\Bodies\Creators\UrlencodeCreator;
+use JuanchoSL\HttpData\Bodies\Creators\UrlencodedCreator;
 use PHPUnit\Framework\TestCase;
 
 class BodyUrlEncoderTest extends TestCase
@@ -12,7 +12,7 @@ class BodyUrlEncoderTest extends TestCase
     {
         $body = ['clave' => 'valor'];
         $origin = http_build_query($body);
-        $response = (new UrlencodeCreator)->appendData($body);
+        $response = (new UrlencodedCreator)->appendData($body);
 
         $this->assertEquals($origin, (string) $response);
     }
@@ -20,7 +20,7 @@ class BodyUrlEncoderTest extends TestCase
     {
         $body = ['clave' => 'valor'];
         $origin = http_build_query($body);
-        $response = (new UrlencodeCreator)->appendData(['clave' => ''])->appendData($body);
+        $response = (new UrlencodedCreator)->appendData(['clave' => ''])->appendData($body);
 
         $this->assertEquals($origin, (string) $response);
     }
@@ -29,7 +29,7 @@ class BodyUrlEncoderTest extends TestCase
     {
         $body = ['clave' => ['subclave' => 'valor']];
         $origin = http_build_query($body);
-        $response = (new UrlencodeCreator)->appendData($body);
+        $response = (new UrlencodedCreator)->appendData($body);
 
         $this->assertEquals($origin, (string) $response);
     }
@@ -37,7 +37,7 @@ class BodyUrlEncoderTest extends TestCase
     {
         $body = ['clave' => ['subclave' => 'valor']];
         $origin = http_build_query($body);
-        $response = (new UrlencodeCreator)->appendData(['clave' => []])->appendData($body);
+        $response = (new UrlencodedCreator)->appendData(['clave' => []])->appendData($body);
 
         $this->assertEquals($origin, (string) $response);
     }
@@ -46,7 +46,7 @@ class BodyUrlEncoderTest extends TestCase
     {
         $body = ['clave' => ['subclave', 'valor']];
         $origin = http_build_query($body);
-        $response = (new UrlencodeCreator)->appendData($body);
+        $response = (new UrlencodedCreator)->appendData($body);
 
         $this->assertEquals($origin, (string) $response);
     }
@@ -56,7 +56,7 @@ class BodyUrlEncoderTest extends TestCase
         $origin = http_build_query($body);
         $obj = new \stdClass;
         $obj->clave = ['subclave', 'valor'];
-        $response = (new UrlencodeCreator)->appendData(['clave' => []])->appendData((array) $obj);
+        $response = (new UrlencodedCreator)->appendData(['clave' => []])->appendData((array) $obj);
 
         $this->assertEquals($origin, (string) $response);
     }

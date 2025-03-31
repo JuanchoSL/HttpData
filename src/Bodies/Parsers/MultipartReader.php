@@ -2,12 +2,13 @@
 
 namespace JuanchoSL\HttpData\Bodies\Parsers;
 
+use JuanchoSL\HttpData\Contracts\BodyParsers;
 use Psr\Http\Message\StreamInterface;
 /**
  * Base on
  * @link https://foxpa.ws/manually-parse-multipart-form-data
  */
-class MultipartReader
+class MultipartReader implements BodyParsers
 {
 
 	protected $resource;
@@ -15,18 +16,18 @@ class MultipartReader
 	protected array $data = [];
 	protected array $files = [];
 
-	
+
 	public function __construct(StreamInterface $resource, $boundary = null)
 	{
 		$handler = fopen('php://memory', 'rw');
-        fwrite($handler, (string) $resource);
-        fseek($handler, 0);
+		fwrite($handler, (string) $resource);
+		fseek($handler, 0);
 		$this->resource = $resource;
 		$this->boundary = $boundary;
 		[$this->data, $this->files] = $this->fromResource($handler, $this->boundary);
 	}
 
-	public function toGlobals(): void
+	public function toPostGlobals(): void
 	{
 		[$_POST, $_FILES] = $this->getBodyParts();
 	}

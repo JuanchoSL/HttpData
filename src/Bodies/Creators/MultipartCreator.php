@@ -4,9 +4,10 @@ namespace JuanchoSL\HttpData\Bodies\Creators;
 
 use CURLFile;
 use CURLStringFile;
+use JuanchoSL\HttpData\Contracts\BodyCreators;
 use Stringable;
 
-class MultipartCreator extends AbstractBodyCreator implements Stringable
+class MultipartCreator extends AbstractBodyCreator implements BodyCreators, Stringable
 {
 
     protected string $eol = "\r\n";

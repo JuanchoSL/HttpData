@@ -69,9 +69,9 @@ In order to create standard sender bodies, are providing 2 tools in order to cre
 Available for GET or BODY params, creating an urlencoded string from any array type
 
 ```php
-use JuanchoSL\HttpData\Bodies\Creators\UrlencodeCreator;
+use JuanchoSL\HttpData\Bodies\Creators\UrlencodedCreator;
 
-echo (new UrlencodeCreator)->appendData([
+echo (new UrlencodedCreator)->appendData([
     'form' => [
         'name' => "nombre",
         'surname' => "apellidos"

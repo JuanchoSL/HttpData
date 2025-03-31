@@ -3,6 +3,7 @@
 namespace JuanchoSL\HttpData\Factories;
 
 use Fig\Http\Message\RequestMethodInterface;
+use JuanchoSL\HttpData\Bodies\Parsers\UrlencodedReader;
 use JuanchoSL\HttpData\Factories\UriFactory;
 use JuanchoSL\HttpData\Containers\ServerRequest;
 use JuanchoSL\HttpData\Bodies\Parsers\MultipartReader;
@@ -82,12 +83,12 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
         if (in_array('application/x-www-form-urlencoded', $content_types) || in_array('multipart/form-data', $content_types)) {
             if (($req->getMethod() != RequestMethodInterface::METHOD_POST || empty($_POST)) && $req->getBody()->getSize() > 0) {
                 if (in_array('application/x-www-form-urlencoded', $content_types)) {
-                    mb_parse_str((string) $req->getBody(), $_POST);
+                    (new UrlencodedReader($req->getBody()))->toPostGlobals();
                 } else {
                     try {
                         [$_POST, $_FILES] = request_parse_body();
                     } catch (RequestParseBodyException $e) {
-                        (new MultipartReader($req->getBody()))->toGlobals();
+                        (new MultipartReader($req->getBody()))->toPostGlobals();
                     }
                 }
             }
