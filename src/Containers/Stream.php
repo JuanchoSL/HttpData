@@ -44,7 +44,7 @@ class Stream implements StreamInterface
         }
         $size = fstat($this->resource);
 
-        return array_key_exists('size', $size) && is_numeric($size['size']) ? $size['size'] : null;
+        return (is_array($size) && array_key_exists('size', $size) && is_numeric($size['size'])) ? $size['size'] : null;
     }
 
     public function tell(): int
