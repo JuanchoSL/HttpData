@@ -37,6 +37,13 @@ The Factories folder/namespace, defines how create the objects, ensuring the ful
 - Uris
 - Uploaded files
 
+#### Server factory
+
+As an extra, we can create a full formatted Server request, ir order to retrieve a standard object from 
+
+- using the __fromGlobals__ method and adquire data from ___SERVER__ superglobal constant without pass any parameter
+- using the __fromRequest__ method, using a pre created Request as parameter, usefull for tests and console actions
+
 ### FIG Message utils
 
 The library includes the messages utils from FIGs of PHP, includes the
