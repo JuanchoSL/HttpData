@@ -1,6 +1,6 @@
 {
     "name": "juanchosl/httpdata",
-    "description": "Little methods collection in order to create http request and responses",
+    "description": "Little methods collection in order to create http request and responses using the PSR standards from PHP-FIG definitions",
     "type": "library",
     "license": "MIT",
     "homepage": "https://github.com/JuanchoSL/httpdata",
