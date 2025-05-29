@@ -13,13 +13,24 @@ class MultipartReader implements BodyParsers
 
 	protected $resource;
 	protected ?string $boundary = null;
+	/**
+	 * Summary of data
+	 * @var array<string, mixed>
+	 */
 	protected array $data = [];
+	/**
+	 * Summary of files
+	 * @var array<string, array<mixed,mixed>>
+	 */
 	protected array $files = [];
 
 
-	public function __construct(StreamInterface $resource, $boundary = null)
+	public function __construct(StreamInterface $resource, ?string $boundary = null)
 	{
 		$handler = fopen('php://memory', 'rw');
+		if (empty($handler)) {
+			throw new \RuntimeException("The Stream can not be created");
+		}
 		fwrite($handler, (string) $resource);
 		fseek($handler, 0);
 		$this->resource = $resource;
@@ -32,22 +43,39 @@ class MultipartReader implements BodyParsers
 		[$_POST, $_FILES] = $this->getBodyParts();
 	}
 
+	/**
+	 * Summary of getBodyParts
+	 * @return array<int, array<string, mixed>>
+	 */
 	public function getBodyParts(): array
 	{
 		return [$this->getBodyParams(), $this->getBodyFiles()];
 	}
-
+	/**
+	 * Summary of getBodyParams
+	 * @return array<string, mixed>
+	 */
 	public function getBodyParams(): array
 	{
 		return $this->data;
 	}
 
+	/**
+	 * Summary of getBodyFiles
+	 * @return array<string, array<mixed,mixed>>
+	 */
 	public function getBodyFiles(): array
 	{
 		return $this->files;
 	}
 
-	protected function fromResource($stream, $boundary = null)
+	/**
+	 * Summary of fromResource
+	 * @param mixed $stream
+	 * @param mixed $boundary
+	 * @return array<int, array<string, mixed>>
+	 */
+	protected function fromResource($stream, ?string $boundary = null): array
 	{
 		$return = array('', '');
 
@@ -87,7 +115,13 @@ class MultipartReader implements BodyParsers
 		return $return;
 	}
 
-	protected function parse_header_value($line, $header = '')
+	/**
+	 * Summary of parse_header_value
+	 * @param string $line
+	 * @param string $header
+	 * @return array<string|string>
+	 */
+	protected function parse_header_value(string $line, string $header = ''): array
 	{
 		$retval = array();
 		$regex = '/(^|;)\s*(?P<name>[^=:,;\s"]*):?(=("(?P<quotedValue>[^"]*(\\.[^"]*)*)")|(\s*(?P<value>[^=,;\s"]*)))?/mx';
@@ -112,7 +146,7 @@ class MultipartReader implements BodyParsers
 		return $retval;
 	}
 
-	protected function parse_variable($stream, $boundary, $name, &$array)
+	protected function parse_variable($stream, string $boundary, string $name, &$array)
 	{
 		$fullValue = '';
 		$lastLine = null;
@@ -131,7 +165,15 @@ class MultipartReader implements BodyParsers
 
 	}
 
-	protected function parse_file($stream, $boundary, $info, &$array)
+	/**
+	 * Summary of parse_file
+	 * @param mixed $stream
+	 * @param string $boundary
+	 * @param array<string, array<string, string>> $info
+	 * @param string $array
+	 * @return void
+	 */
+	protected function parse_file($stream, string $boundary, array $info, string &$array)
 	{
 		static $a_c = [];
 
@@ -187,6 +229,11 @@ class MultipartReader implements BodyParsers
 		$array .= "&" . urldecode(http_build_query([str_replace('[]', '[' . $a_c[$name] . ']', $name) => $fileStruct]));
 	}
 
+	/**
+	 * Summary of fileInputParser
+	 * @param iterable<string, mixed> $arr
+	 * @return array<array|array{error: null, name: null, size: null, tmp_name: null, type: null>}
+	 */
 	protected function fileInputParser(iterable $arr)
 	{
 		$output = [];

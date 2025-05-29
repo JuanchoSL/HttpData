@@ -17,11 +17,26 @@ use RequestParseBodyException;
 class ServerRequestFactory implements ServerRequestFactoryInterface
 {
 
+    /**
+     * Summary of createServerRequest
+     * @param string $method
+     * @param mixed $uri
+     * @param array<string, mixed> $serverParams
+     * @return ServerRequestInterface
+     */
     public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
         return $this->init($method, $uri, $serverParams, (new StreamFactory)->createStreamFromResource(fopen("php://input", "rw")));
     }
 
+    /**
+     * Summary of init
+     * @param string $method
+     * @param mixed $uri
+     * @param array<string, mixed> $serverParams
+     * @param \Psr\Http\Message\StreamInterface $body
+     * @return ServerRequest|ServerRequestInterface
+     */
     protected function init(string $method, $uri, array $serverParams, StreamInterface $body): ServerRequestInterface
     {
         if (!$uri instanceof UriInterface) {
@@ -61,7 +76,11 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
         return $this->init($request->getMethod(), $request->getUri(), $_SERVER, $request->getBody());
     }
 
-    protected function getallheaders()
+    /**
+     * Summary of getallheaders
+     * @return array<string, mixed>
+     */
+    protected function getallheaders(): array
     {
         $headers = [];
         foreach ($_SERVER as $name => $value) {
@@ -72,7 +91,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
         return $headers;
     }
 
-    protected function addBodyParsedData(ServerRequestInterface $req)
+    protected function addBodyParsedData(ServerRequestInterface $req): ServerRequestInterface
     {
         $content_types = $req->getHeader('content-type');
         foreach ($content_types as $index => $content_type) {

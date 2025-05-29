@@ -8,7 +8,7 @@ use Psr\Http\Message\StreamInterface;
 class UrlencodedReader implements BodyParsers
 {
 
-    protected $resource;
+    protected StreamInterface $resource;
 
     public function __construct(StreamInterface $resource)
     {

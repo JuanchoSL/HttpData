@@ -15,7 +15,7 @@ class MultipartCreator extends AbstractBodyCreator implements BodyCreators, Stri
 
     public function __construct(string $boundary)
     {
-        $this->boundary = $boundary ?? md5(uniqid());
+        $this->boundary = $boundary;// ?? md5(uniqid());
     }
     public function __tostring(): string
     {
@@ -25,7 +25,14 @@ class MultipartCreator extends AbstractBodyCreator implements BodyCreators, Stri
         return $body;
     }
 
-    protected function parsePart(&$data, iterable $part, string $name = '')
+    /**
+     * Summary of parsePart
+     * @param string $data
+     * @param iterable<string, mixed> $part
+     * @param string $name
+     * @return void
+     */
+    protected function parsePart(string &$data, iterable $part, string $name = ''): void
     {
         foreach ($part as $key => $value) {
             $subname = empty($name) ? $key : $name;
@@ -48,6 +55,9 @@ class MultipartCreator extends AbstractBodyCreator implements BodyCreators, Stri
                     $data .= $value . $this->eol;
                 } elseif ($value instanceof CURLFile) {
                     $content = file_get_contents($value->getFilename());
+                    if ($content === false) {
+                        throw new \RuntimeException("Failing reading the file contents");
+                    }
                     $data .= 'Content-Disposition: form-data; name="' . $subname . '"; filename="' . $value->getPostFilename() . '"' . $this->eol
                         . 'Content-Type: ' . $value->getMimeType() . $this->eol
                         . 'Content-Transfer-Encoding: binary' . $this->eol

@@ -23,6 +23,10 @@ class UploadedFileFactory implements UploadedFileFactoryInterface
         return new UploadedFile($stream, $clientFilename, $clientMediaType, $size, $error);
     }
 
+    /**
+     * Summary of fromGlobals
+     * @return array<string|int, mixed>
+     */
     public function fromGlobals(): array
     {
         $uploadedFiles = $_FILES;
