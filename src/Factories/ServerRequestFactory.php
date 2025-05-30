@@ -26,7 +26,8 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
      */
     public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
-        return $this->init($method, $uri, $serverParams, (new StreamFactory)->createStreamFromResource(fopen("php://input", "rw")));
+        $headers = (function_exists('getallheaders') && !empty(getallheaders())) ? getallheaders() : $this->getallheaders();
+        return $this->init($method, $uri, $serverParams, (new StreamFactory)->createStreamFromResource(fopen("php://input", "rw")), $headers);
     }
 
     /**
@@ -35,9 +36,10 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
      * @param mixed $uri
      * @param array<string, mixed> $serverParams
      * @param \Psr\Http\Message\StreamInterface $body
+     * @param array<string, mixed> $headers
      * @return ServerRequest|ServerRequestInterface
      */
-    protected function init(string $method, $uri, array $serverParams, StreamInterface $body): ServerRequestInterface
+    protected function init(string $method, $uri, array $serverParams, StreamInterface $body, array $headers = []): ServerRequestInterface
     {
         if (!$uri instanceof UriInterface) {
             $uri = (new UriFactory)->createUri($uri);
@@ -51,7 +53,6 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
             ->withUri($uri)
         ;
 
-        $headers = (function_exists('getallheaders') && !empty(getallheaders())) ? getallheaders() : $this->getallheaders();
         foreach ($headers as $key => $value) {
             $req = $req->withAddedHeader($key, $value);
         }
@@ -73,7 +74,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
     }
     public function fromRequest(RequestInterface $request): ServerRequestInterface
     {
-        return $this->init($request->getMethod(), $request->getUri(), $_SERVER, $request->getBody());
+        return $this->init($request->getMethod(), $request->getUri(), $_SERVER, $request->getBody(), $request->getHeaders());
     }
 
     /**
