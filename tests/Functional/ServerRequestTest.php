@@ -34,7 +34,7 @@ class ServerRequestTest extends TestCase
             $req = (new RequestFactory)->createRequest($method, 'http://localhost')
                 ->withProtocolVersion('1.1')
                 ->withBody($body)
-                ->withAddedHeader('content-type','application/x-www-form-urlencoded')
+                ->withAddedHeader('content-type', 'application/x-www-form-urlencoded')
             ;
             $req = (new ServerRequestFactory)->fromRequest($req);
 

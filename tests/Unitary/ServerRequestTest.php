@@ -14,15 +14,15 @@ class ServerRequestTest extends TestCase
 
     public function testGet()
     {
-        $query=['clave' => 'valor'];
+        $query = ['clave' => 'valor'];
         $req = (new ServerRequest)
             ->withMethod('GET')
             ->withProtocolVersion('1.1')
             ->withQueryParams($query)
-            ;
-            $this->assertEquals($query, $req->getQueryParams());
+        ;
+        $this->assertEquals($query, $req->getQueryParams());
     }
-    
+
     public function testPost()
     {
         $body_array = ['cuerpo' => 'dato'];
@@ -55,7 +55,7 @@ class ServerRequestTest extends TestCase
             ->withProtocolVersion('1.1')
             ->withQueryParams(['clave' => 'valor'])
             ->withBody($body)
-                        ->withParsedBody((new MultipartReader(new Stream($handle)))->getBodyParams())
+            ->withParsedBody((new MultipartReader(new Stream($handle)))->getBodyParams())
         ;
 
         $this->assertEquals($body_string, (string) $req->getBody());
