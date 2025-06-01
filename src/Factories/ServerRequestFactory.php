@@ -21,33 +21,36 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
      * Summary of createServerRequest
      * @param string $method
      * @param mixed $uri
-     * @param array<string, mixed> $serverParams
+     * @param array<string, mixed> $server_params
      * @return ServerRequestInterface
      */
-    public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
+    public function createServerRequest(string $method, $uri, array $server_params = []): ServerRequestInterface
     {
         $headers = (function_exists('getallheaders') && !empty(getallheaders())) ? getallheaders() : $this->getallheaders();
-        return $this->init($method, $uri, $serverParams, (new StreamFactory)->createStreamFromResource(fopen("php://input", "rw")), $headers);
+        return $this->init($method, $uri, $server_params, (new StreamFactory)->createStreamFromResource(fopen("php://input", "rw")), $headers);
     }
 
     /**
      * Summary of init
      * @param string $method
      * @param mixed $uri
-     * @param array<string, mixed> $serverParams
+     * @param array<string, mixed> $server_params
      * @param \Psr\Http\Message\StreamInterface $body
      * @param array<string, mixed> $headers
      * @return ServerRequest|ServerRequestInterface
      */
-    protected function init(string $method, $uri, array $serverParams, StreamInterface $body, array $headers = []): ServerRequestInterface
+    protected function init(string $method, $uri, array $server_params, StreamInterface $body, array $headers = []): ServerRequestInterface
     {
+        foreach (['SERVER_PROTOCOL' => '1.1'] as $server_index => $default) {
+            $server_params[$server_index] ??= $_SERVER[$server_index] ?? $default;
+        }
         if (!$uri instanceof UriInterface) {
             $uri = (new UriFactory)->createUri($uri);
         }
         mb_parse_str($uri->getQuery(), $_GET);
         $req = (new ServerRequest)
             ->withMethod($method)
-            ->withProtocolVersion($_SERVER['SERVER_PROTOCOL'] ?? '1.1')
+            ->withProtocolVersion($server_params['SERVER_PROTOCOL'])
             ->withCookieParams($_COOKIE ?? [])
             ->withQueryParams($_GET ?? [])
             ->withUri($uri)
@@ -74,7 +77,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
     }
     public function fromRequest(RequestInterface $request): ServerRequestInterface
     {
-        return $this->init($request->getMethod(), $request->getUri(), $_SERVER, $request->getBody(), $request->getHeaders());
+        return $this->init($request->getMethod(), $request->getUri(), ['SERVER_PROTOCOL' => $request->getProtocolVersion()], $request->getBody(), $request->getHeaders());
     }
 
     /**
@@ -104,6 +107,8 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
             if (($req->getMethod() != RequestMethodInterface::METHOD_POST || empty($_POST)) && $req->getBody()->getSize() > 0) {
                 if (in_array('application/x-www-form-urlencoded', $content_types)) {
                     (new UrlencodedReader($req->getBody()))->toPostGlobals();
+                } elseif (version_compare(PHP_VERSION, '8.4.0', '<')) {
+                    (new MultipartReader($req->getBody()))->toPostGlobals();
                 } else {
                     try {
                         [$_POST, $_FILES] = request_parse_body();
