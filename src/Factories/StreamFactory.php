@@ -12,6 +12,9 @@ class StreamFactory implements StreamFactoryInterface
     public function createStream(string $content = ''): StreamInterface
     {
         $resource = fopen('php://temp', 'w');
+        if (empty($resource)) {
+            throw new \RuntimeException("The Stream can not be created");
+        }
         fwrite($resource, $content);
         return $this->createStreamFromResource($resource);
     }

@@ -9,12 +9,12 @@ class UploadedFile implements UploadedFileInterface
 {
     protected StreamInterface $stream;
     protected int $error;
-    protected string $client_name;
+    protected ?string $client_name = null;
     protected ?string $media_type = null;
-    protected int $size;
+    protected ?int $size = null;
     protected bool $moved = false;
 
-    public function __construct(StreamInterface $stream, string $client_name, string $media_type, int $size, int $error = 0)
+    public function __construct(StreamInterface $stream, ?string $client_name = null, ?string $media_type = null, ?int $size = null, int $error = 0)
     {
         $this->stream = $stream;
         $this->client_name = $client_name;
@@ -41,7 +41,7 @@ class UploadedFile implements UploadedFileInterface
         } else {
             if (!is_file($targetPath)) {
                 throw new \InvalidArgumentException("The path '{$targetPath}' is invalid");
-            } elseif (!is_uploaded_file($this->client_name) || !move_uploaded_file($this->client_name, $targetPath)) {
+            } elseif (empty($this->client_name) || !is_uploaded_file($this->client_name) || !move_uploaded_file($this->client_name, $targetPath)) {
                 throw new \RuntimeException("The file cannot be moved");
             }
         }

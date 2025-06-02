@@ -9,7 +9,7 @@ class ClientException extends \Exception implements ClientExceptionInterface
 {
     protected RequestInterface $request;
 
-    public function setRequest(RequestInterface $request)
+    public function setRequest(RequestInterface $request): void
     {
         $this->request = $request;
     }
