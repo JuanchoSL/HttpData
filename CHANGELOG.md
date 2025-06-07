@@ -1,5 +1,17 @@
 # Change Log HttpData
 
+## [1.0.2] - 2025-06-07
+
+### Added
+
+### Changed
+
+- Change composer support from php v8.1
+
+### Fixed
+
+- retrieve data and mimetype from stdin
+
 ## [1.0.1] - 2025-06-02
 
 ### Added
