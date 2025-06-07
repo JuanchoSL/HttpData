@@ -27,7 +27,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
     public function createServerRequest(string $method, $uri, array $server_params = []): ServerRequestInterface
     {
         $headers = (function_exists('getallheaders') && !empty(getallheaders())) ? getallheaders() : $this->getallheaders();
-        return $this->init($method, $uri, $server_params, (new StreamFactory)->createStreamFromResource(fopen("php://input", "rw")), $headers);
+        return $this->init($method, $uri, $server_params, null, $headers);
     }
 
     /**
@@ -39,7 +39,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
      * @param array<string, mixed> $headers
      * @return ServerRequest|ServerRequestInterface
      */
-    protected function init(string $method, $uri, array $server_params, StreamInterface $body, array $headers = []): ServerRequestInterface
+    protected function init(string $method, $uri, array $server_params, ?StreamInterface $body = null, array $headers = []): ServerRequestInterface
     {
         foreach (['SERVER_PROTOCOL' => '1.1'] as $server_index => $default) {
             $server_params[$server_index] ??= $_SERVER[$server_index] ?? $default;
@@ -60,6 +60,13 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
             $req = $req->withAddedHeader($key, $value);
         }
         if (in_array(strtoupper($method), ['POST', 'PUT', 'PATCH'])) {
+            if (is_null($body)) {
+                defined('STDIN') or define('STDIN', fopen('php://input', 'r+'));
+                $body = (new StreamFactory)->createStreamFromResource(STDIN);
+                if ($body->isSeekable()) {
+                    $req = $req->withAddedHeader('content-type', mime_content_type(STDIN));
+                }
+            }
             $req = $req->withBody($body);
             $req = $this->addBodyParsedData($req);
         }
