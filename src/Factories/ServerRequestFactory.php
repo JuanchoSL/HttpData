@@ -62,8 +62,10 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
         if (in_array(strtoupper($method), ['POST', 'PUT', 'PATCH'])) {
             if (is_null($body)) {
                 defined('STDIN') or define('STDIN', fopen('php://input', 'r+'));
-                $req = $req->withAddedHeader('content-type', mime_content_type(STDIN));
                 $body = (new StreamFactory)->createStreamFromResource(STDIN);
+                if ($body->isSeekable()) {
+                    $req = $req->withAddedHeader('content-type', mime_content_type(STDIN));
+                }
             }
             $req = $req->withBody($body);
             $req = $this->addBodyParsedData($req);
