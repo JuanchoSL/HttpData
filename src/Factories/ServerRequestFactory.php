@@ -51,6 +51,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
         $req = (new ServerRequest)
             ->withMethod($method)
             ->withProtocolVersion($server_params['SERVER_PROTOCOL'])
+            ->withRequestTarget($uri->getPath())
             ->withCookieParams($_COOKIE ?? [])
             ->withQueryParams($_GET ?? [])
             ->withUri($uri)
