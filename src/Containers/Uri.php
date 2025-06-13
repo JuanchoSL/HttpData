@@ -88,9 +88,9 @@ class Uri implements UriInterface
     public function withUserInfo(string $user, ?string $password = null): UriInterface
     {
         $new = clone $this;
-        $new->userinfo = $user;
+        $new->userinfo = urlencode($user);
         if (!empty($password)) {
-            $new->userinfo .= ":" . $password;
+            $new->userinfo .= ":" . urlencode($password);
         }
         return $new;
     }
@@ -118,6 +118,11 @@ class Uri implements UriInterface
 
     public function withQuery(string $query): UriInterface
     {
+        if ($query != '') {
+            $data = [];
+            mb_parse_str($query, $data);
+            $query = http_build_query($data);
+        }
         $new = clone $this;
         $new->query = $query;
         return $new;

@@ -23,4 +23,32 @@ class UriFactory implements UriFactoryInterface
             ->withQuery($uri_parsed["query"] ?? "")
             ->withFragment($uri_parsed["fragment"] ?? "");
     }
+
+
+    public function fromGlobals(): UriInterface
+    {
+        $uri = array_key_exists('HTTPS', $_SERVER) && strtoupper($_SERVER['HTTPS']) == 'ON' ? 'https' : 'http';
+        $uri .= '://';
+        foreach (['HTTP_HOST', 'SERVER_NAME', 'HOSTNAME'] as $target) {
+            if (array_key_exists($target, $_SERVER)) {
+                $uri .= $_SERVER[$target];
+                break;
+            }
+        }
+        if (array_key_exists('REQUEST_URI', $_SERVER)) {
+            $uri .= $_SERVER[ 'REQUEST_URI'];
+        } else {
+            foreach (['SCRIPT_URL', 'PATH_INFO'] as $target) {
+                if (array_key_exists($target, $_SERVER)) {
+                    $uri .= $_SERVER[$target];
+                    break;
+                }
+            }
+            if (array_key_exists('QUERY_STRING', $_SERVER)) {
+                $uri .= '?' . $_SERVER['QUERY_STRING'];
+            }
+        }
+        return $this->createUri($uri);
+    }
+
 }

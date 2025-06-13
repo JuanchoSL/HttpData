@@ -26,6 +26,9 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
      */
     public function createServerRequest(string $method, $uri, array $server_params = []): ServerRequestInterface
     {
+        if (!$uri instanceof UriInterface) {
+            $uri = (new UriFactory)->createUri($uri);
+        }
         $headers = (function_exists('getallheaders') && !empty(getallheaders())) ? getallheaders() : $this->getallheaders();
         return $this->init($method, $uri, $server_params, null, $headers);
     }
@@ -44,9 +47,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
         foreach (['SERVER_PROTOCOL' => '1.1'] as $server_index => $default) {
             $server_params[$server_index] ??= $_SERVER[$server_index] ?? $default;
         }
-        if (!$uri instanceof UriInterface) {
-            $uri = (new UriFactory)->createUri($uri);
-        }
+
         mb_parse_str($uri->getQuery(), $_GET);
         $req = (new ServerRequest)
             ->withMethod($method)
@@ -76,13 +77,13 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
 
     public function fromGlobals(): ServerRequestInterface
     {
-        $uri = array_key_exists('HTTPS', $_SERVER) && strtoupper($_SERVER['HTTPS']) == 'ON' ? 'https' : 'http';
-        $uri .= '://';
-        $uri .= $_SERVER['HTTP_HOST'];
-        $uri .= $_SERVER['REQUEST_URI'];
-
-        return $this->createServerRequest($_SERVER['REQUEST_METHOD'], $uri, $_SERVER);
+        return $this->createServerRequest(
+            $_SERVER['REQUEST_METHOD'],
+            (new UriFactory)->fromGlobals(),
+            $_SERVER
+        );
     }
+
     public function fromRequest(RequestInterface $request): ServerRequestInterface
     {
         return $this->init($request->getMethod(), $request->getUri(), ['SERVER_PROTOCOL' => $request->getProtocolVersion()], $request->getBody(), $request->getHeaders());

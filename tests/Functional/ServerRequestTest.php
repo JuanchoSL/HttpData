@@ -8,6 +8,7 @@ use JuanchoSL\HttpData\Factories\ServerRequestFactory;
 use JuanchoSL\HttpData\Factories\StreamFactory;
 use JuanchoSL\HttpData\Bodies\Creators\MultipartCreator;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ServerRequestInterface;
 
 class ServerRequestTest extends TestCase
 {
@@ -23,6 +24,53 @@ class ServerRequestTest extends TestCase
 
             $this->assertEquals($query, $req->getQueryParams());
         }
+    }
+
+    public function testGetFromGlobalsRequest()
+    {
+        $_SERVER['HTTPS'] = 'OFF';
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $_SERVER['REQUEST_URI'] = '/usercase?' . http_build_query([
+            "required_void" => 1,
+            "required_multi" => ['a', 'b', 'c']
+        ]);
+
+        $request = (new ServerRequestFactory)->fromGlobals();
+        $this->assertInstanceOf(ServerRequestInterface::class, $request);
+        $this->assertEquals(sprintf('http://%s/usercase?%s', 'localhost', http_build_query(['required_void' => 1, 'required_multi' => ['a', 'b', 'c']])), (string) $request->getUri());
+        $attributes = $request->getQueryParams();
+        $this->assertIsArray($attributes);
+        $this->assertArrayHasKey('required_multi', $attributes);
+        $multi = $attributes['required_multi'];
+        $this->assertIsArray($multi);
+        $this->assertContains('a', $multi);
+        $this->assertContains('b', $multi);
+        $this->assertContains('c', $multi);
+    }
+
+    public function testGetFromGlobalsScript()
+    {
+        $_SERVER['HTTPS'] = 'OFF';
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['HTTP_HOST'] = 'localhost';
+        $_SERVER['SCRIPT_URL'] = '/usercase';
+        $_SERVER['QUERY_STRING'] = http_build_query([
+            "required_void" => 1,
+            "required_multi" => ['a', 'b', 'c']
+        ]);
+
+        $request = (new ServerRequestFactory)->fromGlobals();
+        $this->assertInstanceOf(ServerRequestInterface::class, $request);
+        $this->assertEquals(sprintf('http://%s/usercase?%s', 'localhost', http_build_query(['required_void' => 1, 'required_multi' => ['a', 'b', 'c']])), (string) $request->getUri());
+        $attributes = $request->getQueryParams();
+        $this->assertIsArray($attributes);
+        $this->assertArrayHasKey('required_multi', $attributes);
+        $multi = $attributes['required_multi'];
+        $this->assertIsArray($multi);
+        $this->assertContains('a', $multi);
+        $this->assertContains('b', $multi);
+        $this->assertContains('c', $multi);
     }
     public function testPost()
     {

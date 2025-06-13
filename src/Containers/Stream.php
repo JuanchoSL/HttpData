@@ -8,6 +8,10 @@ class Stream implements StreamInterface
 {
 
     protected $resource;
+    /**
+     * Summary of meta
+     * @var array<string, mixed>
+     */
     protected array $meta = [];
     protected int $seek;
     public function __construct($resource)
@@ -34,7 +38,10 @@ class Stream implements StreamInterface
     public function detach()
     {
         $this->close();
-        $this->resource = null;
+        if (!is_readable($this->resource)) {
+            $this->resource = null;
+        }
+        return $this->resource;
     }
 
     public function getSize(): int|null
