@@ -39,10 +39,16 @@ The Factories folder/namespace, defines how create the objects, ensuring the ful
 
 #### Server factory
 
-As an extra, we can create a full formatted Server request, ir order to retrieve a standard object from 
+As an extra, we can create a full formatted Server request, ir order to retrieve a standard object from
 
-- using the __fromGlobals__ method and adquire data from ___SERVER__ superglobal constant without pass any parameter
-- using the __fromRequest__ method, using a pre created Request as parameter, usefull for tests and console actions
+- using the **fromGlobals** method and adquire data from **\_SERVER** superglobal constant without pass any parameter
+- using the **fromRequest** method, using a pre created Request as parameter, usefull for tests and console actions
+
+#### Uri factory
+
+As an extra, we can create a full formatted URI, ir order to retrieve a standard object from
+
+- using the **fromGlobals** method and adquire data from **\_SERVER** superglobal constant without pass any parameter
 
 ### FIG Message utils
 

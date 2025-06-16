@@ -1,5 +1,23 @@
 # Change Log HttpData
 
+## [1.0.3] - 2025-06-16
+
+### Added
+
+- UriFactory->fromGlobals method can extract domain data from 'HTTP_HOST', 'SERVER_NAME' or 'HOSTNAME' server global
+- UriFactory->fromGlobals method can extract uri data from
+  - REQUEST_URI server global
+  - SCRIPT_URL or PATH_INFO with a combination with QUERY_STRING globals
+
+### Changed
+
+- ServerRequestFactory->fromGlobals method can extract uri from UriFactory->fromGlobals
+
+### Fixed
+
+- request target now is extracted from uri
+- ensure that query params string is encoded
+
 ## [1.0.2] - 2025-06-07
 
 ### Added
