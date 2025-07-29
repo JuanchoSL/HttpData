@@ -179,7 +179,7 @@ In order to receive standard bodies and parse to use it, you can read and conver
 
 #### Multipart decoder
 
-Available for BODY contents, reading multipar/form-data srting to array type
+Available for BODY contents, reading multipar/form-data string to array type
 
 ```php
 use JuanchoSL\HttpData\Bodies\Parsers\MultipartReader;
