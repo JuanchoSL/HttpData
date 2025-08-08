@@ -16,7 +16,7 @@ class UriFactory implements UriFactoryInterface
         }
         return (new Uri())
             ->withScheme($uri_parsed["scheme"] ?? "")
-            ->withUserInfo($uri_parsed["user"] ?? "", $uri_parsed["pass"] ?? "")
+            ->withUserInfo(!empty($uri_parsed["user"]) ? urldecode($uri_parsed["user"]) : "", !empty($uri_parsed["pass"]) ? urldecode($uri_parsed["pass"]) : "")
             ->withHost($uri_parsed["host"] ?? "")
             ->withPort($uri_parsed["port"] ?? null)
             ->withPath($uri_parsed["path"] ?? "")
@@ -36,7 +36,7 @@ class UriFactory implements UriFactoryInterface
             }
         }
         if (array_key_exists('REQUEST_URI', $_SERVER)) {
-            $uri .= $_SERVER[ 'REQUEST_URI'];
+            $uri .= $_SERVER['REQUEST_URI'];
         } else {
             foreach (['SCRIPT_URL', 'PATH_INFO'] as $target) {
                 if (array_key_exists($target, $_SERVER)) {

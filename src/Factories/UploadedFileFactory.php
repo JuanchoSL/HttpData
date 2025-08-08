@@ -49,8 +49,13 @@ class UploadedFileFactory implements UploadedFileFactoryInterface
         } else {
             $seq[$name] = $arr;
             if ($name == 'size') {
+                if (empty($seq['tmp_name'])) {
+                    $stream = (new StreamFactory)->createStream('');
+                } else {
+                    $stream = (new StreamFactory)->createStreamFromFile($seq['tmp_name']);
+                }
                 return $seq = $this->createUploadedFile(
-                    (new StreamFactory)->createStreamFromFile($seq['tmp_name']),
+                    $stream,
                     (int) $seq['size'],
                     (int) $seq['error'],
                     $seq['name'],
