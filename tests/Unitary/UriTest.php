@@ -57,4 +57,29 @@ class UriTest extends TestCase
         $this->assertEquals('tag1', $original->getFragment());
         $this->assertEquals('tag2', $cloned->getFragment());
     }
+    public function testUriWithUserinfo()
+    {
+        $original = (new Uri)->withUserInfo('user1');
+        $cloned = $original->withUserInfo('user2');
+        $this->assertNotEquals($original->getUserInfo(), $cloned->getUserInfo());
+        $this->assertEquals('user1', $original->getUserInfo());
+        $this->assertEquals('user2', $cloned->getUserInfo());
+    }
+    
+    public function testUriWithUserinfoEncoded()
+    {
+        $original = (new Uri)->withUserInfo('%40user1');
+        $cloned = $original->withUserInfo('%40user2');
+        $this->assertNotEquals($original->getUserInfo(), $cloned->getUserInfo());
+        $this->assertEquals('%40user1', $original->getUserInfo());
+        $this->assertEquals('%40user2', $cloned->getUserInfo());
+    }
+    public function testUriWithUserinfoEncoder()
+    {
+        $original = (new Uri)->withUserInfo('@user1');
+        $cloned = $original->withUserInfo('@user2');
+        $this->assertNotEquals($original->getUserInfo(), $cloned->getUserInfo());
+        $this->assertEquals(urlencode('@user1'), $original->getUserInfo());
+        $this->assertEquals(urlencode('@user2'), $cloned->getUserInfo());
+    }
 }

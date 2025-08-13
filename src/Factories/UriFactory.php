@@ -36,7 +36,7 @@ class UriFactory implements UriFactoryInterface
             }
         }
         if (array_key_exists('REQUEST_URI', $_SERVER)) {
-            $uri .= $_SERVER[ 'REQUEST_URI'];
+            $uri .= $_SERVER['REQUEST_URI'];
         } else {
             foreach (['SCRIPT_URL', 'PATH_INFO'] as $target) {
                 if (array_key_exists($target, $_SERVER)) {
