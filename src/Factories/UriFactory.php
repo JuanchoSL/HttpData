@@ -16,7 +16,7 @@ class UriFactory implements UriFactoryInterface
         }
         return (new Uri())
             ->withScheme($uri_parsed["scheme"] ?? "")
-            ->withUserInfo(!empty($uri_parsed["user"]) ? urldecode($uri_parsed["user"]) : "", !empty($uri_parsed["pass"]) ? urldecode($uri_parsed["pass"]) : "")
+            ->withUserInfo($uri_parsed["user"] ?? "", $uri_parsed["pass"] ?? "")
             ->withHost($uri_parsed["host"] ?? "")
             ->withPort($uri_parsed["port"] ?? null)
             ->withPath($uri_parsed["path"] ?? "")

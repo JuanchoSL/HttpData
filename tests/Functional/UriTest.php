@@ -81,4 +81,44 @@ class UriTest extends TestCase
         $this->assertEquals('', $original->getFragment());
         $this->assertEquals('fragment', $cloned->getFragment());
     }
+    public function testUriWithUserinfo()
+    {
+        $original = (new UriFactory)->createUri('http://www.tecnicosweb.com/paginas/servicios');
+        $cloned = $original->withUserInfo('fragment');
+        $this->assertNotEquals($original->getUserInfo(), $cloned->getUserInfo());
+        $this->assertEquals('', $original->getUserInfo());
+        $this->assertEquals('fragment', $cloned->getUserInfo());
+    }
+    public function testUriWithUserinfoEncoder()
+    {
+        $original = (new UriFactory)->createUri('http://www.tecnicosweb.com/paginas/servicios');
+        $cloned = $original->withUserInfo('@fragment');
+        $this->assertNotEquals($original->getUserInfo(), $cloned->getUserInfo());
+        $this->assertEquals('', $original->getUserInfo());
+        $this->assertEquals(urlencode('@fragment'), $cloned->getUserInfo());
+    }
+    public function testUriWithUserinfoEncoderFactory()
+    {
+        $original = (new UriFactory)->createUri('http://user:pass&@www.tecnicosweb.com/paginas/servicios');
+        $cloned = $original->withUserInfo('user', '@pass');
+        $this->assertNotEquals($original->getUserInfo(), $cloned->getUserInfo());
+        $this->assertEquals('user:' . urlencode('pass&'), $original->getUserInfo());
+        $this->assertEquals('user:' . urlencode('@pass'), $cloned->getUserInfo());
+    }
+    public function testUriWithUserinfoEncoded()
+    {
+        $original = (new UriFactory)->createUri('http://www.tecnicosweb.com/paginas/servicios');
+        $cloned = $original->withUserInfo('%40fragment');
+        $this->assertNotEquals($original->getUserInfo(), $cloned->getUserInfo());
+        $this->assertEquals('', $original->getUserInfo());
+        $this->assertEquals('%40fragment', $cloned->getUserInfo());
+    }
+    public function testUriWithUserinfoEncodedFactory()
+    {
+        $original = (new UriFactory)->createUri('http://user:pass&@www.tecnicosweb.com/paginas/servicios');
+        $cloned = $original->withUserInfo('user', '%40pass');
+        $this->assertNotEquals($original->getUserInfo(), $cloned->getUserInfo());
+        $this->assertEquals('user:' . urlencode('pass&'), $original->getUserInfo());
+        $this->assertEquals('user:' . '%40pass', $cloned->getUserInfo());
+    }
 }

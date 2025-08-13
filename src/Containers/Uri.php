@@ -87,10 +87,26 @@ class Uri implements UriInterface
 
     public function withUserInfo(string $user, ?string $password = null): UriInterface
     {
+        foreach (['user' => $user, 'password' => $password] as $name => $value) {
+            if (!empty($value)) {
+                foreach (['@', '&', '%'] as $reserved_char) {
+                    if (str_contains($value, $reserved_char)) {
+                        if ($reserved_char == '%') {
+                            $pos = strpos($value, '%');
+                            if (is_numeric(substr($value, $pos + 1, 2))) {
+                                continue;
+                            }
+                        }
+                        ${$name} = urlencode($value);
+                        break;
+                    }
+                }
+            }
+        }
         $new = clone $this;
-        $new->userinfo = urlencode($user);
+        $new->userinfo = $user;
         if (!empty($password)) {
-            $new->userinfo .= ":" . urlencode($password);
+            $new->userinfo .= ":" . $password;
         }
         return $new;
     }
