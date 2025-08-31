@@ -1,5 +1,19 @@
 # Change Log HttpData
 
+## [1.0.4] - 2025-08-31
+
+### Added
+
+- check for uri reserved chars in order to encode it at userinfo
+
+### Changed
+
+- removed auto urlencode for user and password into withUserInfo function
+
+### Fixed
+
+- when an upload file fails, create a stream from empty string in order to fill the object with the assigned error
+
 ## [1.0.3] - 2025-06-16
 
 ### Added
