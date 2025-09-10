@@ -39,13 +39,12 @@ class UploadedFile implements UploadedFileInterface
         if ($this->moved) {
             throw new \RuntimeException("The file has been moved previously");
         } else {
-            if (!is_file($targetPath)) {
+            if (!is_dir($targetPath)) {
                 throw new \InvalidArgumentException("The path '{$targetPath}' is invalid");
-            } elseif (empty($this->client_name) || !is_uploaded_file($this->client_name) || !move_uploaded_file($this->client_name, $targetPath)) {
-                throw new \RuntimeException("The file cannot be moved");
+            } elseif (empty($this->client_name) || !is_uploaded_file($this->getStream()->getMetadata('uri')) || !move_uploaded_file($this->getStream()->getMetadata('uri'), $targetPath . DIRECTORY_SEPARATOR . $this->client_name)) {
+                throw new \RuntimeException("The file {$this->getStream()->getMetadata('uri')} cannot be moved to " . $targetPath . DIRECTORY_SEPARATOR . $this->client_name);
             }
         }
-
         $this->moved = true;
     }
 
