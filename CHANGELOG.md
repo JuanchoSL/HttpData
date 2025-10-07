@@ -1,5 +1,15 @@
 # Change Log HttpData
 
+## [1.0.5] - 2025-10-07
+
+### Added
+
+### Changed
+
+### Fixed
+
+- fix for moveTo method on uploadFile
+
 ## [1.0.4] - 2025-08-31
 
 ### Added
