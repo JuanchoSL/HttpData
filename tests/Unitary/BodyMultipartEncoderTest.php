@@ -96,24 +96,25 @@ class BodyMultipartEncoderTest extends TestCase
         $this->assertCount(5, $response[1]['file']);
         $this->assertArrayHasKey('tmp_name', $response[1]['file']);
         $this->assertIsArray($response[1]['file']['tmp_name']);
-        $this->assertCount(3, $response[1]['file']['tmp_name']);
+        $this->assertCount((version_compare(PHP_VERSION, '8.1.0', '>=')) ? 3 : 2, $response[1]['file']['tmp_name']);
     }
 
     protected function getData(): array
     {
         $file = dirname(__FILE__, 3) . DIRECTORY_SEPARATOR . 'composer.json';
-        //print_r($file);exit;
         $files = [
             'form' => [
                 'name' => "pepe",
                 'surname' => "apellidos"
             ],
             'file' => [
-                new CURLStringFile(file_get_contents($file), basename($file), 'application/json'),
                 new CURLFile($file, 'application/json', basename($file)),
                 '@' . $file
             ]
         ];
+        if (version_compare(PHP_VERSION, '8.1.0', '>=')) {
+            $files['file'][] = new CURLStringFile(file_get_contents($file), basename($file), 'application/json');
+        }
         return $files;
     }
 }
