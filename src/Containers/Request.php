@@ -15,7 +15,7 @@ class Request extends Message implements RequestInterface
     {
         $target = $this->target;
         if (empty($target) || $target == '*') {
-            if(empty($this->uri) || empty($target = $this->uri->getPath())) {
+            if (empty($this->uri) || empty($target = $this->uri->getPath())) {
                 $target = '/';
             }
             if (!empty($this->uri) && !empty($this->uri->getQuery())) {
@@ -62,5 +62,11 @@ class Request extends Message implements RequestInterface
             }
         }
         return $new;
+    }
+
+    public function __tostring(): string
+    {
+        $body = $this->getMethod() . " " . $this->getRequestTarget() . " HTTP/" . $this->getProtocolVersion() . "\r\n";
+        return $body . parent::__tostring();
     }
 }

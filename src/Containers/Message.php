@@ -2,16 +2,21 @@
 
 namespace JuanchoSL\HttpData\Containers;
 
-use DateTime;
+use JsonSerializable;
 use JuanchoSL\HttpData\Factories\StreamFactory;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
+use Stringable;
 
-abstract class Message implements MessageInterface
+abstract class Message implements MessageInterface, Stringable
 {
 
     protected string $protocol_version = '1.1';
 
+    /**
+     * Summary of headers
+     * @var array<string, array<int,string>>
+     */
     protected array $headers = [];
 
     protected StreamInterface $body;
@@ -121,5 +126,22 @@ abstract class Message implements MessageInterface
             }
         }
         throw new \InvalidArgumentException("The '{$find}' header does not exists");
+    }
+
+    public function __tostring(): string
+    {
+        $buffer = "";
+        foreach ($this->getHeaders() as $name => $value) {
+            $buffer .= $name . ": " . $this->getHeaderLine($name) . "\r\n";
+        }
+        $body = $this->getBody();
+        if ($body->getSize() > 0) {
+            $buffer .= "\r\n";
+            $buffer .= "\r\n";
+            $buffer .= (string) $body;
+        } else {
+            $buffer = trim($buffer);
+        }
+        return $buffer;
     }
 }

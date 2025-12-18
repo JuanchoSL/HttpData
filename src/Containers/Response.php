@@ -4,8 +4,9 @@ namespace JuanchoSL\HttpData\Containers;
 
 use JuanchoSL\HttpHeaders\Headers;
 use Psr\Http\Message\ResponseInterface;
+use Stringable;
 
-class Response extends Message implements ResponseInterface
+class Response extends Message implements ResponseInterface, Stringable
 {
     protected int $status_code;
     protected string $reasonPhrase;
@@ -29,5 +30,11 @@ class Response extends Message implements ResponseInterface
     public function getReasonPhrase(): string
     {
         return $this->reasonPhrase;
+    }
+
+    public function __tostring(): string
+    {
+        $buffer = "HTTP/" . $this->getProtocolVersion() . " " . $this->getStatusCode() . " " . $this->getReasonPhrase() . "\r\n";
+        return $buffer . parent::__tostring();
     }
 }
