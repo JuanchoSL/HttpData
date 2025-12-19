@@ -2,7 +2,6 @@
 
 namespace JuanchoSL\HttpData\Containers;
 
-use JsonSerializable;
 use JuanchoSL\HttpData\Factories\StreamFactory;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
