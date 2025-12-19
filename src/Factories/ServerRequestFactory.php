@@ -128,6 +128,8 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
             }
             if (!empty($_FILES))
                 $req = $req->withUploadedFiles((new UploadedFileFactory)->fromGlobals());
+        }
+        if (!empty($_POST)) {
             $req = $req->withParsedBody($_POST ?? []);
         }
         return $req;

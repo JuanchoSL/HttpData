@@ -250,8 +250,8 @@ class MultipartReader implements BodyParsers
 				foreach (array_keys($data) as $field) {
 					if (!array_key_exists($field, $content)) {
 						$output[$name][$field] = [];
-						static::fileInputParse($content, $field, $output[$name][$field]);
 					}
+					static::fileInputParse($content, $field, $output[$name][$field]);
 				}
 			}
 		}
