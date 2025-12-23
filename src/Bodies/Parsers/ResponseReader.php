@@ -20,7 +20,7 @@ class ResponseReader extends MessageReader
         $exploded = explode("\r\n\r\n", (string) $resource, 2);
         if (isset($exploded[0])) {
             $headers = $exploded[0];
-            preg_match('/^HTTP\/(\d+)\s(\d+)\s(.*)/', $headers, $request_head);
+            preg_match('/^HTTP\/(\S+)\s(\d+)\s(.*)/', $headers, $request_head);
             list(, $this->response['protocol'], $this->response['status'], $this->response['reason']) = $request_head;
 
             parent::__construct($resource, $boundary);
