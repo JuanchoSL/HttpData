@@ -10,7 +10,7 @@ class MessageReader
 {
 
     protected array $headers = [];
-    protected $body;
+    protected ?StreamInterface $body = null;
 
     public function __construct(StreamInterface $resource, ?string $boundary = null)
     {
@@ -35,6 +35,11 @@ class MessageReader
     public function getHeadersParams(): array
     {
         return $this->headers;
+    }
+
+    public function getBodyStream(): ?StreamInterface
+    {
+        return $this->body;
     }
 
     public function getBody(): ?BodyParsers
