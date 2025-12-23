@@ -95,7 +95,6 @@ Cache-Control: no-cache
 domain=www.tecnicosweb.com&csrf_token=0121rrn0ro3q678q085455o27r1622pp&submit=Revisar
 EOH;
         $message = new RequestReader((new StreamFactory())->createStream($message));
-        echo "<pre>" . print_r($message, true);
         $request = $message->getRequestParams();
         $this->assertEquals(RequestMethodInterface::METHOD_POST, $request['method']);
         $this->assertEquals("/whois", $request['uri']);

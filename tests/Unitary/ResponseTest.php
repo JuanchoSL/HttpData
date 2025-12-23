@@ -49,7 +49,6 @@ EOH;
         $stream = (new StreamFactory())->createStream($response);
         $response = new ResponseReader($stream);
 
-        //echo "<pre>".print_r($response, true);
         $response = $response();
         $this->assertEquals(StatusCodeInterface::STATUS_OK, $response->getStatusCode());
         $this->assertStringContainsString('text/html', $response->getHeaderLine('content-type'));

@@ -86,7 +86,6 @@ class BodyMultipartDecoderTest extends TestCase
         $this->assertIsArray($response);
         $this->assertArrayHasKey(1, $response);
         foreach ($response[1] as $file_name => $file_values) {
-            //print_r($response);exit;
             $this->assertEquals($file_name, 'file');
             $this->assertIsArray($file_values);
             $this->assertArrayHasKey('tmp_name', $file_values);
