@@ -14,10 +14,7 @@ class MessageReader
 
     public function __construct(StreamInterface $resource, ?string $boundary = null)
     {
-        $exploded = (string) $resource;
-        $exploded = str_replace("\r\n", "\r", $exploded);
-        $exploded = str_replace("\n", "\r", $exploded);
-        $exploded = explode("\r\r", $exploded, 2);
+        $exploded = $this->fixLineBreaks($resource);
         if (isset($exploded[0])) {
             $headers = $exploded[0];
             preg_match_all('/(\S+):\s*(.+)/m', $headers, $first);
@@ -64,4 +61,21 @@ class MessageReader
         return (is_object($this->getBody())) ? $this->getBody()->getBodyParts() : [];
     }
 
+    protected function fixLineBreaks(StreamInterface $stream): array
+    {
+        $exploded = (string) $stream;
+        if (PHP_EOL == "\r\n") {
+            $exploded = str_replace("\r\r", PHP_EOL . PHP_EOL, $exploded);
+            $exploded = str_replace("\n\n", PHP_EOL . PHP_EOL, $exploded);
+        } else {
+            $exploded = str_replace("\r\n\r\n", PHP_EOL . PHP_EOL, $exploded);
+            if (PHP_EOL == "\n") {
+                $exploded = str_replace("\r\r", PHP_EOL . PHP_EOL, $exploded);
+            } else {
+                $exploded = str_replace("\n\n", PHP_EOL . PHP_EOL, $exploded);
+            }
+        }
+
+        return $exploded = explode(PHP_EOL . PHP_EOL, $exploded, 2);
+    }
 }

@@ -17,10 +17,7 @@ class ResponseReader extends MessageReader
 
     public function __construct(StreamInterface $resource, ?string $boundary = null)
     {
-        $exploded = (string) $resource;
-        $exploded = str_replace("\r\n", "\r", $exploded);
-        $exploded = str_replace("\n", "\r", $exploded);
-        $exploded = explode("\r\r", $exploded, 2);
+        $exploded = $this->fixLineBreaks($resource);
         if (isset($exploded[0])) {
             $headers = $exploded[0];
             preg_match('/^HTTP\/(\S+)\s(\d+)\s(.*)/', $headers, $request_head);
