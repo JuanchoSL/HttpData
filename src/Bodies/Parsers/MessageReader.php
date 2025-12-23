@@ -26,10 +26,8 @@ class MessageReader
                 }
                 $this->headers[ucfirst(strtolower(trim($header)))] = trim($value);
             }
-            if (isset($exploded[1])) {
-                $this->body = (new StreamFactory)->createStream($exploded[1]);
-            }
         }
+        $this->body = (new StreamFactory)->createStream($exploded[1]??'');
     }
 
     public function getHeadersParams(): array

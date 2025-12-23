@@ -78,4 +78,5 @@ class RequestReader extends MessageReader implements BodyParsers
         mb_parse_str($this->server['QUERY_STRING'], $_GET);
         $this->getBody()?->toPostGlobals();
     }
+
 }
