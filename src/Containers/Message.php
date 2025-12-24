@@ -80,8 +80,11 @@ abstract class Message implements MessageInterface, Stringable
             $new->headers[$name] = [];
         } finally {
             if (!is_iterable($value)) {
+                if ($value instanceof Stringable) {
+                    $value = (string) $value;
+                }
                 if (strpos($value, ',') !== false) {
-                    $value = is_numeric(strtotime($value)) || in_array(strtolower($name), ['user-agent']) ? [$value] : explode(',', $value);
+                    $value = is_numeric(strtotime($value)) || in_array(strtolower($name), ['user-agent', 'set-cookie', 'cookie']) ? [$value] : explode(',', $value);
                 } else {
                     $value = [$value];
                 }

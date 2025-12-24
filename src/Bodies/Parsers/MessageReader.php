@@ -21,9 +21,6 @@ class MessageReader
             $headers = array_combine($first[1], $first[2]);
             $headers = array_change_key_case($headers);
             foreach ($headers as $header => $value) {
-                if (str_contains(strtolower($header), 'cookie')) {
-                    continue;
-                }
                 $this->headers[ucfirst(strtolower(trim($header)))] = trim($value);
             }
         }

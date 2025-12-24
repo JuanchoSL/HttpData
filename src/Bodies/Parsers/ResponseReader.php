@@ -25,7 +25,10 @@ class ResponseReader extends MessageReader
 
             parent::__construct($resource, $boundary);
             foreach ($this->getHeadersParams() as $header => $value) {
-                if (strtolower($header) == 'set-cookie') {
+                if (strtolower($header) == 'cookie') {
+                    unset($this->headers[$header]);
+                    continue;
+                } elseif (strtolower($header) == 'set-cookie') {
                     $cookie_parts = explode(';', $value);
                     foreach ($cookie_parts as $cookie_part) {
                         if (strpos($cookie_part, '=') !== False) {
@@ -41,7 +44,7 @@ class ResponseReader extends MessageReader
                                 'value' => trim($data)
                             ];
                         } else {
-                            $cookie[trim($name)] = trim($data);
+                            $cookie[trim($name)] = (is_string($data)) ? trim($data) : $data;
                         }
                     }
                     $this->cookies[] = $cookie;

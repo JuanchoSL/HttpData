@@ -30,7 +30,10 @@ class RequestReader extends MessageReader implements BodyParsers
 
             parent::__construct($resource, $boundary);
             foreach ($this->getHeadersParams() as $header => $value) {
-                if (strtolower($header) == 'cookie') {
+                if (strtolower($header) == 'set-cookie') {
+                    unset($this->headers[$header]);
+                    continue;
+                } elseif (strtolower($header) == 'cookie') {
                     $cookies = explode(';', $value);
                     foreach ($cookies as $cookie) {
                         list($name, $data) = explode('=', $cookie, 2);

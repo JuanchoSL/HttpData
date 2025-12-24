@@ -127,7 +127,7 @@ Content-Length: 1726
 Origin: https://host.docker.internal
 Connection: keep-alive
 Referer: https://host.docker.internal/data/converter
-Cookie: PHPSESSID=4db91aac71366767a09d9772e2882815
+Cookie: PHPSESSID=4db91aac71366767a09d9772e2882815;Valor=Dato
 Upgrade-Insecure-Requests: 1
 Sec-Fetch-Dest: document
 Sec-Fetch-Mode: navigate
