@@ -96,7 +96,7 @@ echo (new UrlencodedCreator)->appendData([
 
 #### Multipart Encoder
 
-Available for BODY params, creating multipar/form-data srting from any array type
+Available for BODY params, creating multipar/form-data string from any array type
 
 ```php
 use JuanchoSL\HttpData\Bodies\Creators\MultipartCreator;
@@ -307,4 +307,42 @@ Or populate to globals directly in order to use it for PATCH and PUT requests
 
 ```php
 (new MultipartReader($body))->toGlobals();
+```
+
+### Full Message parser
+
+Extending previous tools, that only parse the body contents, now we can parse the full info from a message (Request or Response), in order to extract the message info and headers. They can be usefull for convert a raw message string to a standard entity and process it with existing tools.
+
+#### Request parser
+
+Convert an inbound raw http request to a Request parse, as example, can be used for Web Sockets handshake start
+
+```php
+$raw_message = "GET / HTTP/1.1
+Sec-WebSocket-Key: adasd78a8sdad7as897hhjkh
+Sec-WebSocket-Version: 13
+";
+
+$message = new RequestReader((new StreamFactory())->createStream($raw_message));
+$message->toPostGlobals();
+```
+
+#### Response parser
+
+Convert an inbound raw http response to a Response container, as example, can be used for Web Sockets handshake response
+
+```php
+$raw_response = "HTTP/1.1 101 Web Socket Protocol Handshake
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Origin: https://host.docker.internal
+Sec-WebSocket-Location: wss://host.docker.internal:8001
+Sec-WebSocket-Version: 13
+Sec-WebSocket-Accept:dasdkladasjdlkausdioaoadads0d
+
+";
+
+$stream = (new StreamFactory())->createStream($raw_response);
+$response = new ResponseReader($stream);
+$response = $response();
 ```
