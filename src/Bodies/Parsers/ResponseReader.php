@@ -29,7 +29,7 @@ class ResponseReader extends MessageReader
                     unset($this->headers[$header]);
                     continue;
                 } elseif (strtolower($header) == 'set-cookie') {
-                    $cookie_parts = explode(';', $value);
+                    /*$cookie_parts = explode(';', $value);
                     foreach ($cookie_parts as $cookie_part) {
                         if (strpos($cookie_part, '=') !== False) {
                             list($name, $data) = explode('=', $cookie_part);
@@ -46,9 +46,15 @@ class ResponseReader extends MessageReader
                         } else {
                             $cookie[trim($name)] = (is_string($data)) ? trim($data) : $data;
                         }
+                    }*/
+                    if (!is_iterable($value)) {
+                        $value = [$value];
                     }
-                    $this->cookies[] = $cookie;
-                    unset($cookie);
+                    foreach ($value as $val) {
+                        $cookie = new CookieReader($val);
+                        $this->cookies[] = $cookie();
+                        unset($cookie);
+                    }
                 }
             }
         }
