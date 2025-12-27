@@ -18,11 +18,31 @@ class MessageReader
         if (isset($exploded[0])) {
             $headers = $exploded[0];
             preg_match_all('/(\S+):\s*(.+)/m', $headers, $first);
+
+            $this->headers = [];
+            foreach ($first[1] as $index => $name) {
+                $name = ucfirst(strtolower(trim($name)));
+                if (array_key_exists($name, $this->headers) && is_string($this->headers[$name])) {
+                    $this->headers[$name] = [$this->headers[$name]];
+                    $this->headers[$name][] = trim($first[2][$index]);
+                } else {
+                    $this->headers[$name] = trim($first[2][$index]);
+                }
+            }
+            /*
+            echo "<pre>" . print_r($this->headers, true);
             $headers = array_combine($first[1], $first[2]);
             $headers = array_change_key_case($headers);
             foreach ($headers as $header => $value) {
-                $this->headers[ucfirst(strtolower(trim($header)))] = trim($value);
+                $header = ucfirst(strtolower(trim($header)));
+                if (array_key_exists($header, $this->headers) && is_string(current($this->headers[$header]))) {
+                    $this->headers[$header] = [$this->headers[$header]];
+                    $this->headers[$header][] = trim($value);
+                } else {
+                    $this->headers[$header] = trim($value);
+                }
             }
+                */
         }
         $this->body = (new StreamFactory)->createStream($exploded[1] ?? '');
     }

@@ -1,4 +1,27 @@
-# Change Log HttpData
+# Change Log - HttpData
+
+## [1.0.6] - 2025-12-27
+
+### Added
+
+- Checked full compatibility with php versions from 8.1 to 8.5
+- Request Message parser from file, stream or raw string with the availability to send to globals, in order to retrieve, parse and use an HTTP message and use it as a web server
+- Set-cookie header parser, in order to convert the header string to object
+- SetCookie object, for create from handlers, add to headers as stringable and send with other headers or invoke to send from code
+
+### Changed
+
+- Message is now stringable
+- Request is now stringable
+- Response is now stringable
+- Upgrade Phpunit to v10
+
+### Fixed
+
+- hide CURLStringFile for php > 8.1.0 in order to avoid deprecated warning message
+- fix for multi upload using arrays of files with same name
+- parse post body when is not a html form
+- Fix linebreaks unifying for distincts operative systems
 
 ## [1.0.5] - 2025-10-07
 
