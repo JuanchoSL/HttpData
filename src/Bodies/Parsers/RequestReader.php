@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\HttpData\Bodies\Parsers;
 
+use JuanchoSL\DataManipulation\Manipulators\Strings\StringsManipulators;
 use JuanchoSL\HttpData\Contracts\BodyParsers;
 use Psr\Http\Message\StreamInterface;
 
@@ -16,7 +17,7 @@ class RequestReader extends MessageReader implements BodyParsers
 
     public function __construct(StreamInterface $resource, ?string $boundary = null)
     {
-        $exploded = $this->fixLineBreaks($resource);
+        $exploded = explode(PHP_EOL . PHP_EOL, (new StringsManipulators((string) $resource))->eol(PHP_EOL)->__tostring(), 2);
         if (isset($exploded[0])) {
             $headers = $exploded[0];
             preg_match('/^(\S+)\s(\S+)\sHTTP\/(.+)/', $headers, $request_head);
@@ -40,7 +41,8 @@ class RequestReader extends MessageReader implements BodyParsers
                         $this->cookies[trim($name)] = trim($data);
                     }
                 }
-                $this->server["HTTP_" . str_replace("-", "_", strtoupper(trim($header)))] = trim($value);
+                $header = (new StringsManipulators($header))->trim()->toUpper()->preppend('HTTP', '-')->replace('-', '_')->__tostring();
+                $this->server[$header] = trim($value);
             }
 
             if ($this->server['SERVER_PROTOCOL'] >= 2 || (array_key_exists('HTTP_ORIGIN', $this->server) && substr($this->server['HTTP_ORIGIN'], 0, 5) == 'https')) {

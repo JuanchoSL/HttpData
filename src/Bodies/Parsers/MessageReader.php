@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\HttpData\Bodies\Parsers;
 
+use JuanchoSL\DataManipulation\Manipulators\Strings\StringsManipulators;
 use JuanchoSL\HttpData\Contracts\BodyParsers;
 use JuanchoSL\HttpData\Factories\StreamFactory;
 use Psr\Http\Message\StreamInterface;
@@ -14,14 +15,14 @@ class MessageReader
 
     public function __construct(StreamInterface $resource, ?string $boundary = null)
     {
-        $exploded = $this->fixLineBreaks($resource);
+        $exploded = explode(PHP_EOL . PHP_EOL, (new StringsManipulators((string) $resource))->eol(PHP_EOL)->__tostring(), 2);
         if (isset($exploded[0])) {
             $headers = $exploded[0];
             preg_match_all('/(\S+):\s*(.+)/m', $headers, $first);
 
             $this->headers = [];
             foreach ($first[1] as $index => $name) {
-                $name = ucfirst(strtolower(trim($name)));
+                $name = (new StringsManipulators($name))->trim()->toLower()->toUpperWords('-')->__tostring();
                 if (array_key_exists($name, $this->headers) && is_string($this->headers[$name])) {
                     $this->headers[$name] = [$this->headers[$name]];
                     $this->headers[$name][] = trim($first[2][$index]);
@@ -29,20 +30,6 @@ class MessageReader
                     $this->headers[$name] = trim($first[2][$index]);
                 }
             }
-            /*
-            echo "<pre>" . print_r($this->headers, true);
-            $headers = array_combine($first[1], $first[2]);
-            $headers = array_change_key_case($headers);
-            foreach ($headers as $header => $value) {
-                $header = ucfirst(strtolower(trim($header)));
-                if (array_key_exists($header, $this->headers) && is_string(current($this->headers[$header]))) {
-                    $this->headers[$header] = [$this->headers[$header]];
-                    $this->headers[$header][] = trim($value);
-                } else {
-                    $this->headers[$header] = trim($value);
-                }
-            }
-                */
         }
         $this->body = (new StreamFactory)->createStream($exploded[1] ?? '');
     }
@@ -60,10 +47,10 @@ class MessageReader
     public function getBody(): ?BodyParsers
     {
         $body = null;
-        if (isset($this->headers['Content-type'], $this->body)) {
-            if (strpos($this->headers['Content-type'], 'application/x-www-form-urlencoded') !== false) {
+        if (isset($this->headers['Content-Type'], $this->body)) {
+            if (strpos($this->headers['Content-Type'], 'application/x-www-form-urlencoded') !== false) {
                 $body = new UrlencodedReader($this->body);
-            } elseif (strpos($this->headers['Content-type'], 'multipart/form-data') !== false) {
+            } elseif (strpos($this->headers['Content-Type'], 'multipart/form-data') !== false) {
                 $body = new MultipartReader($this->body);
             }
         }
@@ -78,21 +65,4 @@ class MessageReader
         return (is_object($this->getBody())) ? $this->getBody()->getBodyParts() : [];
     }
 
-    protected function fixLineBreaks(StreamInterface $stream): array
-    {
-        $exploded = (string) $stream;
-        if (PHP_EOL == "\r\n") {
-            $exploded = str_replace("\r\r", PHP_EOL . PHP_EOL, $exploded);
-            $exploded = str_replace("\n\n", PHP_EOL . PHP_EOL, $exploded);
-        } else {
-            $exploded = str_replace("\r\n\r\n", PHP_EOL . PHP_EOL, $exploded);
-            if (PHP_EOL == "\n") {
-                $exploded = str_replace("\r\r", PHP_EOL . PHP_EOL, $exploded);
-            } else {
-                $exploded = str_replace("\n\n", PHP_EOL . PHP_EOL, $exploded);
-            }
-        }
-
-        return $exploded = explode(PHP_EOL . PHP_EOL, $exploded, 2);
-    }
 }
