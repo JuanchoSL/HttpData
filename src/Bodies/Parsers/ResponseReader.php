@@ -2,9 +2,8 @@
 
 namespace JuanchoSL\HttpData\Bodies\Parsers;
 
-use JuanchoSL\HttpData\Containers\Response;
+use JuanchoSL\DataManipulation\Manipulators\Strings\StringsManipulators;
 use JuanchoSL\HttpData\Factories\ResponseFactory;
-use JuanchoSL\HttpData\Factories\StreamFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
@@ -17,7 +16,7 @@ class ResponseReader extends MessageReader
 
     public function __construct(StreamInterface $resource, ?string $boundary = null)
     {
-        $exploded = $this->fixLineBreaks($resource);
+        $exploded = explode(PHP_EOL . PHP_EOL, (new StringsManipulators((string) $resource))->eol(PHP_EOL)->__tostring(), 2);
         if (isset($exploded[0])) {
             $headers = $exploded[0];
             preg_match('/^HTTP\/(\S+)\s(\d+)\s(.*)/', $headers, $request_head);
@@ -29,24 +28,6 @@ class ResponseReader extends MessageReader
                     unset($this->headers[$header]);
                     continue;
                 } elseif (strtolower($header) == 'set-cookie') {
-                    /*$cookie_parts = explode(';', $value);
-                    foreach ($cookie_parts as $cookie_part) {
-                        if (strpos($cookie_part, '=') !== False) {
-                            list($name, $data) = explode('=', $cookie_part);
-                        } else {
-                            $name = $cookie_part;
-                            $data = true;
-                        }
-
-                        if (empty($cookie)) {
-                            $cookie = [
-                                'name' => trim($name),
-                                'value' => trim($data)
-                            ];
-                        } else {
-                            $cookie[trim($name)] = (is_string($data)) ? trim($data) : $data;
-                        }
-                    }*/
                     if (!is_iterable($value)) {
                         $value = [$value];
                     }

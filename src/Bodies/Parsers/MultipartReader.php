@@ -1,7 +1,9 @@
-<?php //declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace JuanchoSL\HttpData\Bodies\Parsers;
 
+use JuanchoSL\DataManipulation\Manipulators\Strings\StringsManipulators;
+use JuanchoSL\HttpData\Bodies\Creators\UrlencodedCreator;
 use JuanchoSL\HttpData\Contracts\BodyParsers;
 use Psr\Http\Message\StreamInterface;
 /**
@@ -104,9 +106,7 @@ class MultipartReader implements BodyParsers
 			$delim = strpos($line, ':');
 
 			$headerKey = substr($line, 0, $delim);
-			$headerVal = ltrim($line, $delim + 1);
-
-			$partInfo[$headerKey] = self::parse_header_value($headerVal, $headerKey);
+			$partInfo[$headerKey] = self::parse_header_value($line, $headerKey);
 		}
 		fclose($stream);
 		parse_str(trim($return[0], '&'), $return[0]);
@@ -156,13 +156,10 @@ class MultipartReader implements BodyParsers
 			}
 			$lastLine = $lineN;
 		}
-
 		if ($lastLine != null) {
-			$fullValue .= rtrim($lastLine, "\r\n");
+			$fullValue .= (new StringsManipulators($lastLine))->eol(PHP_EOL)->rtrim(PHP_EOL)->__tostring();
 		}
-		//$array[$name] = $fullValue;
-		$array .= "&" . $name . "=" . $fullValue;
-
+		$array .= (new StringsManipulators($fullValue))->preppend($name, '=')->preppend('&', '')->__tostring();
 	}
 
 	/**
@@ -190,7 +187,6 @@ class MultipartReader implements BodyParsers
 
 		//$array[$name] = &$fileStruct;
 
-
 		if (empty($tempdir)) {
 			$fileStruct['error'] = UPLOAD_ERR_NO_TMP_DIR;
 			//return;
@@ -217,7 +213,8 @@ class MultipartReader implements BodyParsers
 			}
 
 			if ($lastLine != null) {
-				if (fwrite($outFP, rtrim($lastLine, '\r\n')) === false) {
+				$lastLine = (new StringsManipulators($lastLine))->eol(PHP_EOL)->rtrim(PHP_EOL)->__tostring();
+				if (fwrite($outFP, $lastLine) === false) {
 					$fileStruct['error'] = UPLOAD_ERR_CANT_WRITE;
 					//return;
 				}
@@ -226,7 +223,10 @@ class MultipartReader implements BodyParsers
 			$fileStruct['error'] = UPLOAD_ERR_OK;
 			$fileStruct['size'] = filesize($tempname);
 		}
-		$array .= "&" . urldecode(http_build_query([str_replace('[]', '[' . $a_c[$name] . ']', $name) => $fileStruct]));
+		$new_data = (new StringsManipulators($name))->replace('[]', '[' . $a_c[$name] . ']')->__tostring();
+		$new_data = (new UrlencodedCreator())->appendData([$new_data => $fileStruct])->__tostring();
+		$array .= "&" . urldecode($new_data);
+		//$array .= "&" . urldecode(http_build_query([str_replace('[]', '[' . $a_c[$name] . ']', $name) => $fileStruct]));
 	}
 
 	/**

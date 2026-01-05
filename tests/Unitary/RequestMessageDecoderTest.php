@@ -102,7 +102,7 @@ EOH;
 
         $headers = $message->getHeadersParams();
         $this->assertIsArray($headers);
-        $this->assertArrayHasKey('Content-type', $headers);
+        $this->assertArrayHasKey('Content-Type', $headers);
 
         $post = $message->getBodyParams();
         $this->assertIsArray($post);
