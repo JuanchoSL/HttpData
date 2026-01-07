@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4c78c79cd61f4fa80119e4d146b9c8be",
+    "content-hash": "7e963a908fa092ab2e32eb61fe774da8",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -64,16 +64,16 @@
         },
         {
             "name": "juanchosl/datamanipulation",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/DataManipulation.git",
-                "reference": "ed69aba6120850cf4461937199c2ea32eff91dda"
+                "reference": "0a3f3e6efa2efc0f92c54d66163042df9a0e6a3c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/DataManipulation/zipball/ed69aba6120850cf4461937199c2ea32eff91dda",
-                "reference": "ed69aba6120850cf4461937199c2ea32eff91dda",
+                "url": "https://api.github.com/repos/JuanchoSL/DataManipulation/zipball/0a3f3e6efa2efc0f92c54d66163042df9a0e6a3c",
+                "reference": "0a3f3e6efa2efc0f92c54d66163042df9a0e6a3c",
                 "shasum": ""
             },
             "require": {
@@ -84,7 +84,6 @@
                 "phpstan/phpstan": "1.12.*",
                 "phpunit/phpunit": "9.6.*"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -106,13 +105,16 @@
             "description": "Little methods collection in order to manipulate variables contents",
             "homepage": "https://github.com/JuanchoSL/DataManipulation",
             "keywords": [
-                "debug",
-                "log"
+                "arrays",
+                "manipulation",
+                "numbers",
+                "strings",
+                "variables"
             ],
             "support": {
-                "source": "https://github.com/JuanchoSL/DataManipulation/tree/master"
+                "source": "https://github.com/JuanchoSL/DataManipulation/tree/1.0.0"
             },
-            "time": "2026-01-05T06:19:38+00:00"
+            "time": "2026-01-07T09:32:44+00:00"
         },
         {
             "name": "juanchosl/exceptions",
@@ -2103,9 +2105,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "juanchosl/datamanipulation": 20
-    },
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
