@@ -3,7 +3,9 @@
 namespace JuanchoSL\HttpData\Bodies\Parsers;
 
 use JuanchoSL\DataManipulation\Manipulators\Strings\StringsManipulators;
+use JuanchoSL\HttpData\Containers\Request;
 use JuanchoSL\HttpData\Contracts\BodyParsers;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\StreamInterface;
 
 class RequestReader extends MessageReader implements BodyParsers
@@ -23,8 +25,8 @@ class RequestReader extends MessageReader implements BodyParsers
             preg_match('/^(\S+)\s(\S+)\sHTTP\/(.+)/', $headers, $request_head);
             list(, $this->server['REQUEST_METHOD'], $this->server['REQUEST_URI'], $this->server['SERVER_PROTOCOL']) = $request_head;
             if (($position = strpos($this->server['REQUEST_URI'], '?')) !== false) {
-                $this->server['SCRIPT_URL'] = substr($this->server['REQUEST_URI'], 0, $position);
-                $this->server['QUERY_STRING'] = substr($this->server['REQUEST_URI'], $position + 1);
+                $this->server['SCRIPT_URL'] = (new StringsManipulators($this->server['REQUEST_URI']))->trim()->substring(0, $position)->__tostring();
+                $this->server['QUERY_STRING'] = (new StringsManipulators($this->server['REQUEST_URI']))->trim()->substring($position + 1)->__tostring();
             } else {
                 $this->server['SCRIPT_URL'] = $this->server['QUERY_STRING'] = $this->server['REQUEST_URI'];
             }
@@ -84,4 +86,31 @@ class RequestReader extends MessageReader implements BodyParsers
         $this->getBody()?->toPostGlobals();
     }
 
+    public function __invoke(): RequestInterface
+    {
+        $req_params = $this->getRequestParams();
+        $request = (new Request())
+            ->withMethod($req_params['method'])
+            ->withRequestTarget($req_params['uri'])
+            ->withProtocolVersion($req_params['protocol'])
+            ->withBody($this->getBodyStream())
+        ;
+        foreach ($this->getHeadersParams() as $key => $values) {
+            if (!is_iterable($values)) {
+                $values = [$values];
+            }
+            foreach ($values as $value) {
+                $request = $request->withAddedHeader($key, $value);
+            }
+        }
+        foreach ($this->getCookiesParams() as $key => $values) {
+            if (!is_iterable($values)) {
+                $values = [$values];
+            }
+            foreach ($values as $value) {
+                $request = $request->withAddedHeader('cookie', $value);
+            }
+        }
+        return $request;
+    }
 }
