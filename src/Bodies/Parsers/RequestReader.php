@@ -25,8 +25,8 @@ class RequestReader extends MessageReader implements BodyParsers
             preg_match('/^(\S+)\s(\S+)\sHTTP\/(.+)/', $headers, $request_head);
             list(, $this->server['REQUEST_METHOD'], $this->server['REQUEST_URI'], $this->server['SERVER_PROTOCOL']) = $request_head;
             if (($position = strpos($this->server['REQUEST_URI'], '?')) !== false) {
-                $this->server['SCRIPT_URL'] = (new StringsManipulators($this->server['REQUEST_URI'])->trim()->substring(0, $position))->__tostring();
-                $this->server['QUERY_STRING'] = (new StringsManipulators($this->server['REQUEST_URI'])->trim()->substring($position + 1))->__tostring();
+                $this->server['SCRIPT_URL'] = (new StringsManipulators($this->server['REQUEST_URI']))->trim()->substring(0, $position)->__tostring();
+                $this->server['QUERY_STRING'] = (new StringsManipulators($this->server['REQUEST_URI']))->trim()->substring($position + 1)->__tostring();
             } else {
                 $this->server['SCRIPT_URL'] = $this->server['QUERY_STRING'] = $this->server['REQUEST_URI'];
             }
