@@ -68,12 +68,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/DataManipulation.git",
-                "reference": "0a3f3e6efa2efc0f92c54d66163042df9a0e6a3c"
+                "reference": "e2d60d8aaadf869c1c53ef62308dca8f9aad7bf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/DataManipulation/zipball/0a3f3e6efa2efc0f92c54d66163042df9a0e6a3c",
-                "reference": "0a3f3e6efa2efc0f92c54d66163042df9a0e6a3c",
+                "url": "https://api.github.com/repos/JuanchoSL/DataManipulation/zipball/e2d60d8aaadf869c1c53ef62308dca8f9aad7bf5",
+                "reference": "e2d60d8aaadf869c1c53ef62308dca8f9aad7bf5",
                 "shasum": ""
             },
             "require": {
@@ -114,7 +114,7 @@
             "support": {
                 "source": "https://github.com/JuanchoSL/DataManipulation/tree/1.0.0"
             },
-            "time": "2026-01-07T09:32:44+00:00"
+            "time": "2026-01-07T16:40:26+00:00"
         },
         {
             "name": "juanchosl/exceptions",
