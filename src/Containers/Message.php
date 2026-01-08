@@ -147,8 +147,6 @@ abstract class Message implements MessageInterface, Stringable
         $body = $this->getBody();
         if ($body->getSize() > 0) {
             $buffer .= (string) $body;
-        } else {
-            $buffer = trim($buffer);
         }
         return $buffer;
     }
