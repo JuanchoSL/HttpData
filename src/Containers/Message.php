@@ -134,15 +134,20 @@ abstract class Message implements MessageInterface, Stringable
     {
         $buffer = "";
         foreach ($this->getHeaders() as $name => $value) {
-            $buffer .= $name . ": " . $this->getHeaderLine($name) . "\r\n";
+            if (strtolower($name) == 'set-cookie' && is_iterable($value)) {
+                foreach ($value as $string) {
+                    $buffer .= $name . ": " . $string . "\r\n";
+                }
+            } else {
+                $buffer .= $name . ": " . $this->getHeaderLine($name) . "\r\n";
+            }
         }
+        $buffer = trim($buffer);
+        $buffer .= "\r\n";
+        $buffer .= "\r\n";
         $body = $this->getBody();
         if ($body->getSize() > 0) {
-            $buffer .= "\r\n";
-            $buffer .= "\r\n";
             $buffer .= (string) $body;
-        } else {
-            $buffer = trim($buffer);
         }
         return $buffer;
     }
