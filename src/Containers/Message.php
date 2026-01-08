@@ -142,6 +142,7 @@ abstract class Message implements MessageInterface, Stringable
                 $buffer .= $name . ": " . $this->getHeaderLine($name) . "\r\n";
             }
         }
+        $buffer = trim($buffer);
         $buffer .= "\r\n";
         $buffer .= "\r\n";
         $body = $this->getBody();
