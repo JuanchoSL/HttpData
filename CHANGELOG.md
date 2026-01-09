@@ -1,5 +1,21 @@
 # Change Log - HttpData
 
+## [1.0.7] - 2026-01-09
+
+### Added
+
+- use of DataManipulator library in order to unify string message conventions
+- RequestReader is invokable in order to create a PSR RequestInterface compatible object
+
+### Changed
+
+- UCWords for headers instead ucfirst
+
+### Fixed
+
+- Double breakline separating headers and message body, always appened after headers
+- Multi line for headers set-cookie on responses
+
 ## [1.0.6] - 2025-12-27
 
 ### Added
