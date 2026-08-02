@@ -44,18 +44,8 @@ class Uri implements UriInterface
 
     public function getPort(): int|null
     {
-        $ports = [
-            21 => "ftp",
-            22 => "ssh",
-            25 => "smtp",
-            80 => "http",
-            110 => "pop3",
-            220 => "imap",
-            443 => "https",
-            990 => "ftps",
-        ];
         if (!empty($this->getScheme())) {
-            $port = array_search($this->scheme, $ports);
+            $port = getservbyname(strtolower($this->scheme), 'tcp');
             if ($port && $this->port === $port) {
                 return null;
             }
