@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\HttpData\Bodies\Parsers;
 
+use JuanchoSL\DataManipulation\Manipulators\Strings\StringsManipulators;
 use JuanchoSL\HttpData\Containers\SetCookie;
 
 class CookieReader
@@ -19,12 +20,12 @@ class CookieReader
                 $name = $cookie_part;
                 $data = true;
             }
-
+            $name = (new StringsManipulators($name))->trim();
             if (empty($this->cookie)) {
-                $this->cookie = (new SetCookie())->withName(trim($name))->withValue(trim($data));
+                $this->cookie = (new SetCookie())->withName((string) $name)->withValue(trim($data));
             } else {
                 //TestCookie=The%20Cookie%20Value; expires=Sat, 20 Dec 2025 16:57:05 GMT; Max-Age=60; path=/; domain=host.docker.internal; secure; HttpOnly; SameSite=Strict
-                switch (strtolower(trim($name))) {
+                switch ((string) $name->toLower()) {
                     case 'expires':
                         $this->cookie = $this->cookie->withExpires(strtotime($data));
                         break;
