@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e963a908fa092ab2e32eb61fe774da8",
+    "content-hash": "246de8c13226051c75fe4dfdaca62a71",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -167,21 +167,21 @@
         },
         {
             "name": "juanchosl/httpheaders",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/HttpHeaders.git",
-                "reference": "e599267c674a6295617ebf6c400fe69972a6343a"
+                "reference": "c12f1016c78995f839495a36ae463a077bc86cad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/HttpHeaders/zipball/e599267c674a6295617ebf6c400fe69972a6343a",
-                "reference": "e599267c674a6295617ebf6c400fe69972a6343a",
+                "url": "https://api.github.com/repos/JuanchoSL/HttpHeaders/zipball/c12f1016c78995f839495a36ae463a077bc86cad",
+                "reference": "c12f1016c78995f839495a36ae463a077bc86cad",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": "^7.1 || ^8.0"
+                "php": "^8.0"
             },
             "require-dev": {
                 "phpstan/phpstan": "1.10.*",
@@ -200,23 +200,25 @@
             "authors": [
                 {
                     "name": "Juan Sánchez Lecegui",
-                    "email": "JuanchoSL@hotmail.com",
-                    "homepage": "https://github.com/JuanchoSL/"
+                    "email": "Juan.Sanchez@tecnicosweb.com",
+                    "homepage": "https://www.linkedin.com/in/juansanchezlecegui/",
+                    "role": "Developer"
                 }
             ],
-            "description": "Little methods collection in order to create http headers",
+            "description": "Little methods and constants collection in order to create http headers and reuse standard codes and messages",
             "homepage": "https://github.com/JuanchoSL/HttpHeaders",
             "keywords": [
                 "content types",
                 "file extensions",
+                "ftp",
                 "headers",
                 "http",
                 "mime types"
             ],
             "support": {
-                "source": "https://github.com/JuanchoSL/HttpHeaders/tree/1.0.1"
+                "source": "https://github.com/JuanchoSL/HttpHeaders/tree/1.0.2"
             },
-            "time": "2025-06-06T23:49:10+00:00"
+            "time": "2026-08-04T04:25:50+00:00"
         },
         {
             "name": "psr/http-client",
@@ -2093,7 +2095,8 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+        "ext-fileinfo": "*"
     },
     "platform-dev": {},
     "plugin-api-version": "2.9.0"

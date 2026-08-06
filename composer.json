@@ -26,6 +26,7 @@
     "require": {
         "php": "^8.0",
         "ext-mbstring": "*",
+        "ext-fileinfo": "*",
         "fig/http-message-util": "1.1.*",
         "psr/http-message": "2.0.*",
         "psr/http-factory": "1.1.*",
@@ -35,7 +36,7 @@
         "juanchosl/httpheaders": "1.0.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "10.5.*",
+        "phpunit/phpunit": "9.6.* || 10.5.*",
         "phpstan/phpstan": "1.12.*"
     },
     "autoload": {

@@ -128,4 +128,33 @@ class ServerRequestTest extends TestCase
             $this->assertEquals($body_array, $req->getParsedBody(), $method);
         }
     }
+
+    public function testPostBodyFile()
+    {
+        $boundary = '__TEST_HTTP_DATA__';
+        $data = <<<EOH
+'name','surname'
+'pepe','lopez'
+EOH;
+        file_put_contents(sys_get_temp_dir() . DIRECTORY_SEPARATOR . "file.csv", $data);
+        $body_string = (string) (new MultipartCreator($boundary))->appendData(['file' => '@' . sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'file.csv']);
+
+        $body = (new StreamFactory)->createStream($body_string);
+        foreach ([RequestMethodInterface::METHOD_POST, RequestMethodInterface::METHOD_PUT, RequestMethodInterface::METHOD_PATCH] as $method) {
+            $req = (new RequestFactory)->createRequest($method, 'http://localhost')
+                ->withProtocolVersion('1.1')
+                ->withAddedHeader("content-type", "multipart/form-data; boundary={$boundary}")
+                ->withBody($body)
+            ;
+            $req = (new ServerRequestFactory)->fromRequest($req);
+
+            $this->assertEquals($body_string, (string) $req->getBody());
+            $this->assertNotEmpty($req->getUploadedFiles());
+            foreach ($req->getUploadedFiles() as $file) {
+                $this->assertEquals('file.csv', $file->getClientFilename());
+
+            }
+        }
+
+    }
 }

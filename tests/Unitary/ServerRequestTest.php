@@ -83,4 +83,32 @@ class ServerRequestTest extends TestCase
         $this->assertEquals($body_string, (string) $req->getBody());
         $this->assertEquals($body_array, $req->getParsedBody());
     }
+    public function testPostBodyFile()
+    {
+        $boundary = '__TEST_HTTP_DATA__';
+        $data = <<<EOH
+'name','surname'
+'pepe','lopez'
+EOH;
+        file_put_contents(sys_get_temp_dir() . DIRECTORY_SEPARATOR . "file.csv", $data);
+        $body_string = (string) (new MultipartCreator($boundary))->appendData(['file' => '@' . sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'file.csv']);
+
+        $handle = fopen("php://memory", "rw");
+        fwrite($handle, $body_string);
+        fseek($handle, 0);
+        $body = (new StreamFactory)->createStreamFromResource($handle);
+        $new_body = (new MultipartReader($body));
+        $req = (new ServerRequest)
+            ->withMethod('POST')
+            ->withProtocolVersion('1.1')
+            ->withQueryParams(['clave' => 'valor'])
+            ->withBody($body)
+            ->withParsedBody($new_body->getBodyParams())
+            ->withUploadedFiles($new_body->getBodyFiles())
+        ;
+        $this->assertEquals($body_string, (string) $req->getBody());
+        $this->assertArrayHasKey('file', $req->getUploadedFiles());
+        $this->assertArrayHasKey('name', current($req->getUploadedFiles()));
+        $this->assertEquals('file.csv', current($req->getUploadedFiles())['name']);
+    }
 }
