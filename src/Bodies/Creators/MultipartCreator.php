@@ -47,7 +47,13 @@ class MultipartCreator extends AbstractBodyCreator implements BodyCreators, Stri
                 }
                 $data .= '--' . $this->boundary . $this->eol;
                 if (is_string($value) && substr($value, 0, 1) == '@' && is_file($path = substr($value, 1))) {
-                    $value = new CURLFile($path, mime_content_type($path), basename($path));
+                    if (function_exists('mime_content_type')) {
+                        $mime_type = mime_content_type($path);
+                    } else {
+                        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+                        $mime_type = finfo_file($finfo, $path);
+                    }
+                    $value = new CURLFile($path, $mime_type, basename($path));
                 }
                 if (is_scalar($value)) {
                     $data .= 'Content-Disposition: form-data; name="' . $subname . '"' . $this->eol
