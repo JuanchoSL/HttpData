@@ -26,6 +26,12 @@ jobs:
         dependencies: ["install", "update"]
 
     steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@main
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: fileinfo,mbstring
+
       - uses: actions/checkout@main
 
       - name: Validate composer.json and composer.lock
