@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\HttpData\Tests\Unitary;
 
+use Fig\Http\Message\RequestMethodInterface;
 use JuanchoSL\HttpData\Containers\Request;
 use JuanchoSL\HttpData\Factories\UriFactory;
 use PHPUnit\Framework\TestCase;
@@ -27,6 +28,21 @@ class RequestTest extends TestCase
             $request = $request->withRequestTarget($method);
             $this->assertEquals($method, $request->getRequestTarget());
         }
+    }
+    public function testWithTargetAsteriskForm()
+    {
+        $request = (new Request)->withUri((new UriFactory())->createUri('http://aaa.com:80/path/'))->withRequestTarget('*');
+        $this->assertEquals('*', $request->getRequestTarget());
+        $request = (new Request)->withUri((new UriFactory())->createUri('http://aaa.com:80/path/'))->withRequestTarget('/');
+        $this->assertEquals('/', $request->getRequestTarget());
+        $request = (new Request)->withUri((new UriFactory())->createUri('http://aaa.com:80'))->withMethod(RequestMethodInterface::METHOD_OPTIONS);
+        $this->assertEquals('*', $request->getRequestTarget());
+        $request = (new Request)->withUri((new UriFactory())->createUri('http://aaa.com:80/'))->withMethod(RequestMethodInterface::METHOD_OPTIONS);
+        $this->assertNotEquals('*', $request->getRequestTarget());
+        $this->assertEquals('/', $request->getRequestTarget());
+        $request = (new Request)->withUri((new UriFactory())->createUri('http://aaa.com:80/path/'))->withMethod(RequestMethodInterface::METHOD_OPTIONS);
+        $this->assertNotEquals('*', $request->getRequestTarget());
+        $this->assertEquals('/path/', $request->getRequestTarget());
     }
 
     public function testWithUri()

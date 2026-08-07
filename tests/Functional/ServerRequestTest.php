@@ -155,6 +155,118 @@ EOH;
 
             }
         }
+    }
+    public function testWithInvalidHeader()
+    {
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("1name\r\n", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertFalse($server->hasHeader('1name'));
 
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("1name\r", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertFalse($server->hasHeader('1name'));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("1name\n", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertFalse($server->hasHeader('1name'));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("1name \0", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertFalse($server->hasHeader('1name'));
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("2name", "value\r\n a");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertTrue($server->hasHeader('2name'));
+        $this->assertEquals('value a', $server->getHeaderLine('2name'));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("3name", "value\r\n\ta");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertTrue($server->hasHeader('3name'));
+        $this->assertEquals('value a', $server->getHeaderLine('3name'));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("31name", "value\n");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("32name", "value\r");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("32name", "value\0");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("32name", "value\r\n");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("4name \0", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("4name \0", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("a\0a", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("a\20a", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("a\x00a", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("a\x1fa", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("a\x21a", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(2, count($server->getHeaders()));
+
+        $request = (new RequestFactory)->createRequest('GET', 'http://localhost')
+            ->withProtocolVersion('1.1')
+            ->withAddedHeader("a\x21a", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(2, count($server->getHeaders()));
     }
 }

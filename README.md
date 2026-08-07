@@ -309,6 +309,8 @@ Or populate to globals directly in order to use it for PATCH and PUT requests
 (new MultipartReader($body))->toGlobals();
 ```
 
+> The ServerRequestFactory, uses the $\_FILES supergobal to create and use according the [PSR-7](https://www.php-fig.org/psr/psr-7/#16-uploaded-files)
+
 ### Full Message parser
 
 Extending previous tools, that only parse the body contents, now we can parse the full info from a message (Request or Response), in order to extract the message info and headers. They can be usefull for convert a raw message string to a standard entity and process it with existing tools.

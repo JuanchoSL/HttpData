@@ -2,24 +2,35 @@
 
 namespace JuanchoSL\HttpData\Containers;
 
+use Fig\Http\Message\RequestMethodInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\UriInterface;
 
 class Request extends Message implements RequestInterface
 {
     protected string $target = '';
-    protected string $method;
+    protected string $method = '';
     protected UriInterface $uri;
 
     public function getRequestTarget(): string
     {
         $target = $this->target;
-        if (empty($target) || $target == '*') {
-            if (empty($this->uri) || empty($target = $this->uri->getPath())) {
+        if (empty($target) /*|| $target == '*'*/) {
+            if (empty($this->uri)) {
                 $target = '/';
-            }
-            if (!empty($this->uri) && !empty($this->uri->getQuery())) {
-                $target .= "?" . $this->uri->getQuery();
+            } elseif (empty($this->uri->getPath()) && $this->getMethod() == RequestMethodInterface::METHOD_OPTIONS) {
+                $target = '*';
+            } elseif ($this->getMethod() == RequestMethodInterface::METHOD_CONNECT) {
+                $target = $this->uri->getAuthority();
+            } else {
+                $target = $this->uri->getPath();
+                while (substr($target, 0, 1) === '/') {
+                    $target = substr($target, 1);
+                }
+                $target = '/' . $target;
+                if (!empty($this->uri->getQuery())) {
+                    $target .= "?" . $this->uri->getQuery();
+                }
             }
         }
         return $target;
