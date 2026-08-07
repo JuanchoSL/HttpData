@@ -1,4 +1,4 @@
-name: PHP Composer and Tests
+name: Prior PHP Composer and Tests
 
 on:
   push:
@@ -38,9 +38,9 @@ jobs:
         uses: actions/cache@main
         with:
           path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-phpold-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-php-
+            ${{ runner.os }}-phpold-
 
       - name: Install dependencies
         run: composer ${{ matrix.dependencies }} --prefer-dist --no-progress --ignore-platform-reqs
