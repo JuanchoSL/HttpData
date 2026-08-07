@@ -2,7 +2,10 @@
 
 namespace JuanchoSL\HttpData\Containers;
 
+use JuanchoSL\DataManipulation\Manipulators\Strings\StringsManipulators;
+use JuanchoSL\DataManipulation\Sanitizers\Strings\ExtendedStringSanitizers;
 use JuanchoSL\HttpData\Factories\StreamFactory;
+use JuanchoSL\Validators\Types\Strings\StringValidation;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
 use Stringable;
@@ -74,23 +77,35 @@ abstract class Message implements MessageInterface, Stringable
     public function withAddedHeader(string $name, $value): static
     {
         $new = clone $this;
-        try {
-            $name = $new->findHeader($name);
-        } catch (\Exception $e) {
-            $new->headers[$name] = [];
-        } finally {
-            if (!is_iterable($value)) {
-                if ($value instanceof Stringable) {
-                    $value = (string) $value;
+        $sanitized_key = (new ExtendedStringSanitizers())->setStripChars(true)->unsafe();
+        $nkey = (string) $sanitized_key($name);
+        if (StringValidation::isLengthEqualsThan($nkey, mb_strlen($name))) {
+            try {
+                $name = $new->findHeader($name);
+            } catch (\Exception $e) {
+                $new->headers[$name] = [];
+            } finally {
+                if (!is_iterable($value)) {
+                    if ($value instanceof Stringable) {
+                        $value = (string) $value;
+                    }
+                    if (strpos($value, ',') !== false) {
+                        $value = is_numeric(strtotime($value)) || in_array(strtolower($name), ['user-agent', 'set-cookie', 'cookie']) ? [$value] : explode(',', $value);
+                    } else {
+                        $value = [$value];
+                    }
                 }
-                if (strpos($value, ',') !== false) {
-                    $value = is_numeric(strtotime($value)) || in_array(strtolower($name), ['user-agent', 'set-cookie', 'cookie']) ? [$value] : explode(',', $value);
-                } else {
-                    $value = [$value];
+                foreach ($value as $header) {
+                    if (StringValidation::isValueContainingAny($header, "\r\n ", "\r\n\t")) {
+                        $header = (string) (new StringsManipulators($header))->replace("\r\n ", ' ')->replace("\r\n\t", ' ');
+                    }
+                    if (!StringValidation::isValueContainingAny($header, "\r", "\n", "\x00")) {
+                        $new->headers[$name][] = trim($header);
+                    }
                 }
-            }
-            foreach ($value as $header) {
-                $new->headers[$name][] = trim($header);
+                if (empty($new->headers[$name])) {
+                    unset($new->headers[$name]);
+                }
             }
         }
         return $new;

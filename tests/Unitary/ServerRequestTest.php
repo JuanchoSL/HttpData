@@ -2,11 +2,14 @@
 
 namespace JuanchoSL\HttpData\Tests\Unitary;
 
+use JuanchoSL\HttpData\Containers\Request;
 use JuanchoSL\HttpData\Containers\ServerRequest;
 use JuanchoSL\HttpData\Containers\Stream;
+use JuanchoSL\HttpData\Factories\ServerRequestFactory;
 use JuanchoSL\HttpData\Factories\StreamFactory;
 use JuanchoSL\HttpData\Bodies\Creators\MultipartCreator;
 use JuanchoSL\HttpData\Bodies\Parsers\MultipartReader;
+use JuanchoSL\HttpData\Factories\UriFactory;
 use PHPUnit\Framework\TestCase;
 
 class ServerRequestTest extends TestCase
@@ -110,5 +113,81 @@ EOH;
         $this->assertArrayHasKey('file', $req->getUploadedFiles());
         $this->assertArrayHasKey('name', current($req->getUploadedFiles()));
         $this->assertEquals('file.csv', current($req->getUploadedFiles())['name']);
+    }
+
+    public function testWithInvalidHeader()
+    {
+        $request = (new Request)->withUri((new UriFactory())->createUri('http://localhost/'))->withHeader("1name\r\n", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertFalse($server->hasHeader('1name'));
+        $request = (new Request)->withUri((new UriFactory())->createUri('http://localhost/'))->withHeader("1name\r", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertFalse($server->hasHeader('1name'));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('http://localhost/'))->withHeader("1name\n", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertFalse($server->hasHeader('1name'));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('http://localhost/'))->withHeader("1name \0", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertFalse($server->hasHeader('1name'));
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('http://localhost/'))->withHeader("2name", "value\r\n a");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertTrue($server->hasHeader('2name'));
+        $this->assertEquals('value a', $server->getHeaderLine('2name'));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("3name", "value\r\n\ta");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertTrue($server->hasHeader('3name'));
+        $this->assertEquals('value a', $server->getHeaderLine('3name'));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("31name", "value\n");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("32name", "value\r");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("32name", "value\0");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("32name", "value\r\n");
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("4name \0", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("4name \0", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("a\0a", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("a\20a", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("a\x00a", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("a\x1fa", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(1, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("a\x21a", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(2, count($server->getHeaders()));
+
+        $request = (new Request)->withUri((new UriFactory())->createUri('hhtp://localhost/'))->withHeader("a\x21a", 'value');
+        $server = (new ServerRequestFactory())->fromRequest($request);
+        $this->assertLessThanOrEqual(2, count($server->getHeaders()));
     }
 }
