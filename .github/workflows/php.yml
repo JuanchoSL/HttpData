@@ -24,7 +24,7 @@ jobs:
           - "8.4"
           - "8.5"
         os: [ubuntu-latest, windows-latest]
-        dependencies: ["install", "update"]
+        dependencies: ["update"]
 
     steps:
       - name: Setup PHP
