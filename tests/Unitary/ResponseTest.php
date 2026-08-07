@@ -53,6 +53,8 @@ EOH;
         $this->assertEquals(StatusCodeInterface::STATUS_OK, $response->getStatusCode());
         $this->assertStringContainsString('text/html', $response->getHeaderLine('content-type'));
         $this->assertEquals('hello', (string) $response->getBody());
+        $this->assertNotEmpty($response->hasHeader('set-cookie'));
+        $this->assertCount(2,$response->getHeader('set-cookie'));
     }
 
 }
