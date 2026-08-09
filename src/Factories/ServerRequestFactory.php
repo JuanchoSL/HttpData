@@ -53,11 +53,13 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
         $req = (new ServerRequest)
             ->withMethod($method)
             ->withProtocolVersion($server_params['SERVER_PROTOCOL'])
-            ->withRequestTarget($uri->getPath())
             ->withCookieParams($_COOKIE ?? [])
             ->withQueryParams($_GET ?? [])
             ->withUri($uri)
         ;
+        if (array_key_exists('REQUEST_URI', $server_params)) {
+            $req = $req->withRequestTarget($server_params['REQUEST_URI']);
+        }
 
         foreach ($headers as $key => $value) {
             $req = $req->withAddedHeader($key, $value);
@@ -100,7 +102,10 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
 
     public function fromRequest(RequestInterface $request): ServerRequestInterface
     {
-        return $this->init($request->getMethod(), $request->getUri(), ['SERVER_PROTOCOL' => $request->getProtocolVersion()], $request->getBody(), $request->getHeaders());
+        return $this->init($request->getMethod(), $request->getUri(), [
+            'SERVER_PROTOCOL' => $request->getProtocolVersion(),
+            'REQUEST_URI' => $request->getRequestTarget()
+        ], $request->getBody(), $request->getHeaders());
     }
 
     /**

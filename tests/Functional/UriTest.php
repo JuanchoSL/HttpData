@@ -32,11 +32,14 @@ class UriTest extends TestCase
         $uris = [
             "http://www.tecnicosweb.com:80",
             "https://www.tecnicosweb.com:443",
-            "ftp://ftp.tecnicosweb.com:21"
+            "ftp://ftp.tecnicosweb.com:21",
+            "ssh://ftp.tecnicosweb.com:22"
         ];
         $factory = new UriFactory;
         foreach ($uris as $uri) {
-            $result = (string) $factory->createUri($uri);
+            $result = $factory->createUri($uri);
+            $this->assertEmpty($result->getPort(), "$uri: " . $result->getPort());
+            $result = (string) $result;
             $this->assertNotEquals($uri, $result);
             $this->assertStringStartsWith($result, $uri);
         }
