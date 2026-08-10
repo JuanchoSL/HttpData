@@ -47,14 +47,32 @@ class RequestTest extends TestCase
 
     public function testWithUri()
     {
-        $url = 'https://blog.tecnicosweb.com';
-        $new_url = 'https://www.tecnicosweb.com';
+        $url = (new UriFactory)->createUri('https://blog.tecnicosweb.com');
+        $new_url = (new UriFactory)->createUri('https://www.tecnicosweb.com');
 
         $request = new Request;
-        $request = $request->withUri((new UriFactory)->createUri($url));
-        $this->assertNotEquals($new_url, (string) $request->getUri());
-        $request = $request->withUri((new UriFactory)->createUri($new_url));
-        $this->assertEquals($new_url, (string) $request->getUri());
+        $request = $request->withUri($url);
+        $this->assertNotEquals((string) $new_url, (string) $request->getUri());
+        $request = $request->withUri($new_url);
+        $this->assertEquals((string) $new_url, (string) $request->getUri());
+
+        $request = new Request;
+        $request = $request->withUri($url);
+        $this->assertEquals($url->getHost(), (string) $request->getHeaderLine('host'));
+        $request = $request->withUri($new_url, true);
+        $this->assertEquals($url->getHost(), (string) $request->getHeaderLine('host'));
+        $request = $request->withUri($new_url, false);
+        $this->assertEquals($new_url->getHost(), (string) $request->getHeaderLine('host'));
+        $request = $request->withoutHeader('host');
+        $this->assertFalse($request->hasHeader('host'));
+        $this->assertNotEquals($new_url->getHost(), (string) $request->getHeaderLine('host'));
+        $request = $request->withUri($url, true);
+        $this->assertTrue($request->hasHeader('host'));
+        $this->assertEquals($url->getHost(), (string) $request->getHeaderLine('host'));
+        $request = $request->withUri($new_url->withHost(''), false);
+        $this->assertEquals($url->getHost(), (string) $request->getHeaderLine('host'));
+        $request = $request->withUri($new_url->withHost(''), true);
+        $this->assertEquals($url->getHost(), (string) $request->getHeaderLine('host'));
     }
 
     public function testWithHeader()

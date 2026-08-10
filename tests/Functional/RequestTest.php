@@ -38,4 +38,19 @@ class RequestTest extends TestCase
         $this->assertEquals($new_url, (string) $request->withUri((new UriFactory)->createUri($new_url))->getUri());
     }
 
+    public function testWithRequestTarget()
+    {
+        $target = "/section?param=value";
+        $url = 'https://blog.tecnicosweb.com';
+        $factory = new RequestFactory;
+        $uri = (new UriFactory())->createUri($url)->withPath($target);
+        $request = $factory->createRequest('GET', $uri);
+        $this->assertEquals($target, (string) $request->getRequestTarget());
+        $this->assertEquals($target, (string) $request->getUri()->getPath());
+        $request = $request->withRequestTarget('/another');
+        $this->assertEquals('/another', (string) $request->getRequestTarget());
+        $this->assertNotEquals('/another', (string) $request->getUri()->getPath());
+        $this->assertEquals($target, (string) $request->getUri()->getPath());
+    }
+
 }
