@@ -52,7 +52,7 @@ As an extra, we can create a full formatted URI, ir order to retrieve a standard
 
 ### FIG Message utils
 
-The library includes the messages utils from FIGs of PHP, includes the
+The library includes the messages utils from FIGs of PHP, it includes:
 
 #### RequestMethodsInterface
 

@@ -32,12 +32,12 @@
         "psr/http-factory": "1.1.*",
         "psr/http-client": "1.0.*",
         "juanchosl/exceptions": "1.0.*",
-        "juanchosl/validators": "^1.0",
+        "juanchosl/validators": "1.0.*",
         "juanchosl/datamanipulation": "^1.0",
         "juanchosl/httpheaders": "1.0.*"
     },
     "require-dev": {
-        "phpunit/phpunit": "9.6.* || 10.5.*",
+        "phpunit/phpunit": "9.6.* | 10.5.*",
         "phpstan/phpstan": "1.12.*"
     },
     "autoload": {

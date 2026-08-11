@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="vendor/autoload.php" colors="true" cacheResult="false" processIsolation="true">
+<phpunit bootstrap="vendor/autoload.php" colors="true" cacheResult="false" processIsolation="true" defaultTestSuite="All">
     <testsuites>
-        <testsuite name="All Tests Suite">
+        <testsuite name="All">
             <directory>./tests/</directory>
         </testsuite>
         <testsuite name="Unitary Tests Suite">
