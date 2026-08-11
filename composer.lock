@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d25b2ceb22980d82c04317029abce709",
+    "content-hash": "854a2f814c197de9d870320eb9d8273b",
     "packages": [
         {
             "name": "fig/http-message-util",
@@ -222,28 +222,29 @@
         },
         {
             "name": "juanchosl/validators",
-            "version": "1.0.9",
+            "version": "1.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/Validators.git",
-                "reference": "c97691bc8ef01084e1a0f209e0a55b1465406ab5"
+                "reference": "091f2bee805139314928a9c206c2238420b528d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/Validators/zipball/c97691bc8ef01084e1a0f209e0a55b1465406ab5",
-                "reference": "c97691bc8ef01084e1a0f209e0a55b1465406ab5",
+                "url": "https://api.github.com/repos/JuanchoSL/Validators/zipball/091f2bee805139314928a9c206c2238420b528d6",
+                "reference": "091f2bee805139314928a9c206c2238420b528d6",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "juanchosl/datamanipulation": "1.0.*",
-                "php": "^8.1",
+                "juanchosl/exceptions": "1.0.*",
+                "php": "^8.0",
                 "psr/log": "3.0.*"
             },
             "require-dev": {
                 "juanchosl/logger": "1.1.*",
                 "phpstan/phpstan": "1.12.*",
-                "phpunit/phpunit": "10.5.*"
+                "phpunit/phpunit": "9.6.* | 10.5.*"
             },
             "type": "library",
             "autoload": {
@@ -276,9 +277,9 @@
                 "validator"
             ],
             "support": {
-                "source": "https://github.com/JuanchoSL/Validators/tree/1.0.9"
+                "source": "https://github.com/JuanchoSL/Validators/tree/1.0.10"
             },
-            "time": "2026-07-22T10:02:00+00:00"
+            "time": "2026-08-11T11:12:06+00:00"
         },
         {
             "name": "psr/http-client",
@@ -494,20 +495,20 @@
     "packages-dev": [
         {
             "name": "myclabs/deep-copy",
-            "version": "1.13.4",
+            "version": "1.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "07d290f0c47959fd5eed98c95ee5602db07e0b6a"
+                "reference": "8680aa248f8e07bc8fb43f56f0f5fc77a0c96aae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/07d290f0c47959fd5eed98c95ee5602db07e0b6a",
-                "reference": "07d290f0c47959fd5eed98c95ee5602db07e0b6a",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/8680aa248f8e07bc8fb43f56f0f5fc77a0c96aae",
+                "reference": "8680aa248f8e07bc8fb43f56f0f5fc77a0c96aae",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^8.0"
             },
             "conflict": {
                 "doctrine/collections": "<1.6.8",
@@ -542,15 +543,15 @@
             ],
             "support": {
                 "issues": "https://github.com/myclabs/DeepCopy/issues",
-                "source": "https://github.com/myclabs/DeepCopy/tree/1.13.4"
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.14.0"
             },
             "funding": [
                 {
-                    "url": "https://tidelift.com/funding/github/packagist/myclabs/deep-copy",
-                    "type": "tidelift"
+                    "url": "https://github.com/mnapoli",
+                    "type": "github"
                 }
             ],
-            "time": "2025-08-01T08:46:24+00:00"
+            "time": "2026-08-11T10:17:44+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1964,16 +1965,16 @@
         },
         {
             "name": "sebastian/recursion-context",
-            "version": "5.0.1",
+            "version": "5.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/recursion-context.git",
-                "reference": "47e34210757a2f37a97dcd207d032e1b01e64c7a"
+                "reference": "5d32fe257a9b39cb63146924d6b4e32a22d4502a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/47e34210757a2f37a97dcd207d032e1b01e64c7a",
-                "reference": "47e34210757a2f37a97dcd207d032e1b01e64c7a",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/5d32fe257a9b39cb63146924d6b4e32a22d4502a",
+                "reference": "5d32fe257a9b39cb63146924d6b4e32a22d4502a",
                 "shasum": ""
             },
             "require": {
@@ -2016,7 +2017,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/recursion-context/issues",
                 "security": "https://github.com/sebastianbergmann/recursion-context/security/policy",
-                "source": "https://github.com/sebastianbergmann/recursion-context/tree/5.0.1"
+                "source": "https://github.com/sebastianbergmann/recursion-context/tree/5.0.2"
             },
             "funding": [
                 {
@@ -2036,7 +2037,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-08-10T07:50:56+00:00"
+            "time": "2026-08-11T05:27:39+00:00"
         },
         {
             "name": "sebastian/type",
