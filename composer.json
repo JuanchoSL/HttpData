@@ -33,7 +33,7 @@
         "psr/http-client": "1.0.*",
         "juanchosl/exceptions": "1.0.*",
         "juanchosl/validators": "1.0.*",
-        "juanchosl/datamanipulation": "^1.0",
+        "juanchosl/datamanipulation": "1.0.*",
         "juanchosl/httpheaders": "1.0.*"
     },
     "require-dev": {
