@@ -1,5 +1,26 @@
 # Change Log - HttpData
 
+## [1.0.8] - 2026-08-13
+
+### Added
+
+- Multicheck in github action with some php versions
+- Apply sanitizations and verifications for headers names and values, according to [PSR-7](https://www.php-fig.org/psr/psr-7/meta/#7-errata)
+- Checked full compatibility with php v8.6
+
+### Changed
+
+- Removed harcoded ports from Uri, using getservbyname in order to avoid changes for new services
+- For POST,PUT,PATH methods, don't use STDIN directly, copy to a clean stream in order to ensure reciving data when a pipe is used from terminal tools
+- Change the checking list, for host header preservation, when we change the Uri, in order to ensure the restrictions from [PSR-7](https://www.php-fig.org/psr/psr-7/#32-psrhttpmessagerequestinterface)
+- Changed the value origin for the **withRequestTarget** setting from ServerRequestFactory, in order to use the superglobal REQUEST_URI value, if it is present, or use the uri path otherwise, from getRequestTarget method at Request container
+- Upgrade dependencies in order to support php v8.0 again
+
+### Fixed
+
+- Failback using finfo when extracting mime type and mime_content_type function is not available
+- Fix for double slash at start of string for getRequestTarget, enabling * for OPTIONS and authority for CONNECT, according [PSR-7](https://www.php-fig.org/psr/psr-7/#14-request-targets-and-uris)
+
 ## [1.0.7] - 2026-01-09
 
 ### Added
