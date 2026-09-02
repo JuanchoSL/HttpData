@@ -2,6 +2,7 @@
 
 namespace JuanchoSL\HttpData\Bodies\Parsers;
 
+use Exception;
 use JuanchoSL\DataManipulation\Manipulators\Strings\StringsManipulators;
 use JuanchoSL\HttpData\Contracts\BodyParsers;
 use JuanchoSL\HttpData\Factories\StreamFactory;
@@ -31,7 +32,22 @@ class MessageReader
                 }
             }
         }
-        $this->body = (new StreamFactory)->createStream($exploded[1] ?? '');
+        if (!empty($exploded[1])) {
+            $this->body = (new StreamFactory)->createStream($exploded[1] ?? '');
+        } else {
+            try {
+                $stdin = new StdInReader();
+                if (!empty($body = $stdin->getBodyContent())) {
+                    $this->body = $body;
+                    if (!empty($type = $stdin->getBodyType())) {
+                        $this->headers["Content-Type"] = $type;
+                    }
+                }
+            } catch (Exception $e) {
+
+            }
+        }
+
     }
 
     public function getHeadersParams(): array

@@ -4,6 +4,7 @@ namespace JuanchoSL\HttpData\Factories;
 
 use Fig\Http\Message\RequestMethodInterface;
 use JuanchoSL\DataManipulation\Manipulators\Strings\StringsManipulators;
+use JuanchoSL\HttpData\Bodies\Parsers\StdInReader;
 use JuanchoSL\HttpData\Bodies\Parsers\UrlencodedReader;
 use JuanchoSL\HttpData\Factories\UriFactory;
 use JuanchoSL\HttpData\Containers\ServerRequest;
@@ -66,23 +67,10 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
         }
         if (in_array(strtoupper($method), ['POST', 'PUT', 'PATCH'])) {
             if (is_null($body)) {
-                defined('STDIN') or define('STDIN', fopen('php://input', 'r+'));
-                $body = (new StreamFactory)->createStreamFromResource(STDIN);
-                if ($body->getSize() > 0) {
-                    if (!$body->isSeekable()) {
-                        $reader = fopen("php://memory", 'rw');
-                        stream_copy_to_stream(STDIN, $reader);
-                        $body = (new StreamFactory())->createStreamFromResource($reader);
-                    }
-                    if (function_exists('mime_content_type')) {
-                        $mimetype = mime_content_type($body);
-                    } else {
-                        $finfo = finfo_open(FILEINFO_MIME_TYPE);
-                        $mimetype = finfo_file($finfo, $body);
-                    }
-                    if (!empty($mimetype)) {
-                        $req = $req->withAddedHeader('content-type', $mimetype);
-                    }
+                $stdin = new StdInReader();
+                $body = $stdin->getBodyContent();
+                if (!empty($mime = $stdin->getBodyType())) {
+                    $req = $req->withAddedHeader('Content-Type', $mime);
                 }
             }
             $req = $req->withBody($body);
