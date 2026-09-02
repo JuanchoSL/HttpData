@@ -225,16 +225,16 @@
         },
         {
             "name": "juanchosl/validators",
-            "version": "1.0.10",
+            "version": "1.0.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/JuanchoSL/Validators.git",
-                "reference": "091f2bee805139314928a9c206c2238420b528d6"
+                "reference": "c5f14af1c675c3aa19b0e325b1bc1269e1259b41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JuanchoSL/Validators/zipball/091f2bee805139314928a9c206c2238420b528d6",
-                "reference": "091f2bee805139314928a9c206c2238420b528d6",
+                "url": "https://api.github.com/repos/JuanchoSL/Validators/zipball/c5f14af1c675c3aa19b0e325b1bc1269e1259b41",
+                "reference": "c5f14af1c675c3aa19b0e325b1bc1269e1259b41",
                 "shasum": ""
             },
             "require": {
@@ -280,9 +280,9 @@
                 "validator"
             ],
             "support": {
-                "source": "https://github.com/JuanchoSL/Validators/tree/1.0.10"
+                "source": "https://github.com/JuanchoSL/Validators/tree/1.0.11"
             },
-            "time": "2026-08-11T11:12:06+00:00"
+            "time": "2026-08-22T10:14:59+00:00"
         },
         {
             "name": "psr/http-client",
