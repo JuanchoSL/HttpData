@@ -32,7 +32,7 @@ class MessageReader
                 }
             }
         }
-        if (!empty($exploded[1])) {
+        if (!empty($exploded[1]) or true) {
             $this->body = (new StreamFactory)->createStream($exploded[1] ?? '');
         } else {
             try {
