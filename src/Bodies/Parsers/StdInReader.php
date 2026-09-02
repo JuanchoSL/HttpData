@@ -16,12 +16,12 @@ class StdInReader
         foreach (['php://stdin', 'php://input'] as $input) {
             $resource = fopen($input, "rb");
             $body = (new StreamFactory())->createStreamFromResource($resource);
-            if (!$body->isSeekable()) {
-                $reader = fopen("php://memory", 'rw');
-                stream_copy_to_stream($resource, $reader);
-                $body = (new StreamFactory())->createStreamFromResource($reader);
-            }
             if ($body->getSize() > 0) {
+                if (!$body->isSeekable()) {
+                    $reader = fopen("php://memory", 'rw');
+                    stream_copy_to_stream($resource, $reader);
+                    $body = (new StreamFactory())->createStreamFromResource($reader);
+                }
                 if (function_exists('mime_content_type') && ($mimetype = @mime_content_type($reader)) !== false) {
                     $this->mime_type = $mimetype;
                 } else {
