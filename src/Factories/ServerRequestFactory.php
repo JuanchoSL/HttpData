@@ -67,7 +67,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
         }
         if (in_array(strtoupper($method), ['POST', 'PUT', 'PATCH'])) {
             if (is_null($body)) {
-                if (true) {
+                if (false) {
                     defined('STDIN') or define('STDIN', fopen('php://input', 'r+'));
                     $body = (new StreamFactory)->createStreamFromResource(STDIN);
                     if ($body->getSize() > 0) {
@@ -94,7 +94,7 @@ class ServerRequestFactory implements ServerRequestFactoryInterface
                     }
                 }
             }
-            $req = $req->withBody($body);
+            $req = $req->withBody($body ?? (new StreamFactory())->createStream());
             $req = $this->addBodyParsedData($req);
         }
         return $req;
