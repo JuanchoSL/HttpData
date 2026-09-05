@@ -13,8 +13,9 @@ class StdInReader
 
     public function __construct()
     {
-        foreach (['php://stdin', 'php://input'] as $input) {
-            $resource = fopen($input, "rb");
+        $resource = (php_sapi_name() == 'CLI') ? STDIN : fopen('php://input', 'rb');
+        //foreach (['php://stdin', 'php://input'] as $input) {
+            //$resource = fopen($input, "rb");
             $body = (new StreamFactory())->createStreamFromResource($resource);
             if ($body->getSize() > 0) {
                 if (!$body->isSeekable()) {
@@ -30,9 +31,9 @@ class StdInReader
                 }
 
                 $this->body_content = $body;
-                break;
+                //break;
             }
-        }
+        //}
     }
 
     public function getBodyContent(): ?StreamInterface
