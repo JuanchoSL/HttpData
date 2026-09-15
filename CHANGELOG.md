@@ -1,5 +1,17 @@
 # Change Log - HttpData
 
+## [1.0.9] - 2026-09-15
+
+### Added
+
+- StdInReader, in order to group the buffer reading code
+
+### Changed
+
+- With StdInReader, now can check both, php://input and php://stdin wrappers
+
+### Fixed
+
 ## [1.0.8] - 2026-08-13
 
 ### Added
@@ -19,7 +31,7 @@
 ### Fixed
 
 - Failback using finfo when extracting mime type and mime_content_type function is not available
-- Fix for double slash at start of string for getRequestTarget, enabling * for OPTIONS and authority for CONNECT, according [PSR-7](https://www.php-fig.org/psr/psr-7/#14-request-targets-and-uris)
+- Fix for double slash at start of string for getRequestTarget, enabling \* for OPTIONS and authority for CONNECT, according [PSR-7](https://www.php-fig.org/psr/psr-7/#14-request-targets-and-uris)
 
 ## [1.0.7] - 2026-01-09
 
