@@ -13,7 +13,7 @@ class StdInReader
 
     public function __construct()
     {
-        $resource = (php_sapi_name() == 'CLI') ? STDIN : fopen('php://input', 'rb');
+        $resource = (strtolower(php_sapi_name()) == 'cli') ? fopen('php://stdin', 'rb') : fopen('php://input', 'rb');
         //foreach (['php://stdin', 'php://input'] as $input) {
             //$resource = fopen($input, "rb");
             $body = (new StreamFactory())->createStreamFromResource($resource);
